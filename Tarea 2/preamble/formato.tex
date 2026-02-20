@@ -1,0 +1,15 @@
+\usepackage{fancyhdr}			% Creates headers and footers
+\usepackage[paper = a4paper,
+            ignoreall,
+            margin = 1in]{geometry}
+
+% Creates the title
+\makeatletter         
+\renewcommand\maketitle{
+{\raggedright % Note the extra {
+\begin{flushleft}
+{\Large \bfseries \@title}\\[5pt] 
+{\large  \@author}\\[5pt] 
+\@date\\ \rule{3in}{0.5pt} \\[30pt]
+\end{flushleft}}} % Note the extra }
+\makeatother    

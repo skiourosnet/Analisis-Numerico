@@ -1,0 +1,187 @@
+\documentclass[11pt, oneside]{article}
+\usepackage{import}
+\import{preamble/}{preamble.tex}
+\import{preamble/}{formato.tex}
+
+\title{Tarea 2\\Análisis Numérico}
+\author{Kevin Omar Celis Flores}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{problema}[Aritmética de punto flotante] Considere un sistema decimal de punto flotante \(\mathcal{F}\) con precisión 6 y exponentes \(-7\le n\le7\).
+
+    \begin{enumerate}
+        \item Explique cómo aproximar  un número real $$x\in[10^6,\ 10^7)$$ por un número flotante $\mathcal{F}$ usando redondeo al más cercano.
+        
+        Tenemos que \(x\) es de la forma \[x=10^6a_6+10^5a_5+\cdots+10a_1+a_0\] con \(a_6\not=1\), por lo que \(a_6\) será la primera cifra de la mantisa. Por lo tanto su expresión en forma normalizada es \[x=0.a_6a_5a_4a_3a_2a_1a_0\times10^7\] 
+        
+        Dado que la mantisa consta de solo 6 cifras, y \(x\) en su forma normalizada consta de $7$, debemos descartar su ultima cifra, es decir \(a_0\), y aproximar al número más cercano en \(\mathcal{F}\). Existen dos opciones \[x'=0.a_6a_5a_4a_3a_2a_1\times10^7\] y \[x''=\left(0.a_6a_5a_4a_3a_2a_1+10^{-6}\right)\times10^7\] siendo la primera opción por truncamiento y la segunda por redondeo hacia arriba. En caso de empate, escogeremos por defecto aquel en el que la ultima cifra sea par.
+
+        \item Calcule la unidad de redondeo del sistema $\mathcal{F}$:
+
+        \begin{enumerate}
+            \item usando redondeo por corte (truncamiento). 
+            
+            Supongamos que \(x=q\times10^n\) con \(\frac{1}{10}\le q<1\), entonces \[x'=0.c_1\cdots c_6 \times 10^n\] y \[x''=(0.c_1\cdots c_6+10^{-6})\times10^n\]Dado que \(x'\le q\le x''\). Tenemos la siguiente serie de igualdades
+                \begin{equation*}
+                    \frac{|x-x'|}{|x|}\le\frac{|x''-x'|}{|q\times10^n|}\le\frac{10^{-6}\times10^n}{\frac{1}{10}\times10^n}=10^{-5}.
+                \end{equation*}
+
+                Por lo tanto la unidad de redondeo para truncamiento es \(\mu=10^{-5}\)
+
+            \item usando redondeo al más cercano. 
+            Sea \(x\) como en el inciso anterior, y sea \(\tilde{x}\) el número flotante más cercano, a escoger entre truncamiento, o redondeo hacia arriba, entonces \(|x-\tilde{x}|\le\frac{1}{2}|x''-x'|\), siguiendo la misma serie de desigualdades que en el inciso anterior, tenemos que la unidad de redondeo para redondeo al más cercano es \(\mu=\frac{1}{2}\times10^{-5}\).
+            
+        \end{enumerate}
+    \end{enumerate}
+
+\end{problema}
+
+\begin{problema}[Conversión de base decimal a binaria] \leavevmode
+
+    Describa un algoritmo para convertir un número natural N, en base decimal a s representación binaria. 
+
+    \begin{algorithm}
+    \caption{Decimal a Binario}
+    \begin{algorithmic}
+        \Require $N \geq  0$ número entero 
+        \State $b \gets \emptyset$ \Comment{$b$ es una cadena vacia}
+        \While{$N\geq0$}\\
+            Aplicar algoritmo de la división a $N$
+            \State $N\ =\ 2q\ + r$ \Comment{$q<N$ y $0\le r < 2$}
+            \State $N \gets q$
+            \State $b \gets r\ \text{concatenada por la izquierda con } b$ 
+        \EndWhile
+        \State \Return $b$
+    \end{algorithmic}
+    \end{algorithm}
+
+La cadena obtenida al final del algoritmo es la expresión binaria del número  entero $N$. En efecto. Podemos enlistar los pasos del algoritmo como sigue.
+\begin{align*}
+N &= 2q_0 + r_0\\
+q_0 &= 2q_1 + r_1\\
+&\hdots\\
+q_{n-2} &= 2q_{n-1} + r_{n-1}\\
+q_{n-1} &= r_n
+\end{align*}
+
+La ultima igualdad se tiene ya que la condición de paro se da cuando el cociente es menor que 2, es decir, cuando el cociente $q_n$ es igual a cero. La condición de paro siempre se alcanza dado que $N>q_0>q_1\cdots>q_{n-1}>q_n=0$. La cadena $b$ es entonces  $$b= r_n r_{n-1}\cdots r_1r_0$$ de donde debemos probar que $$N=2^nr_n + 2^{n-1}r_{n-1} + \cdots 2r_1+r_0$$ para concluir que $b=N_2$. Para ver esto, basta sustituir uno a uno los cocientes $q_i$, $0\le i \le n$ en la expresión de $N$.
+\begin{align*}
+    N &= 2q_0 + r_0\\
+      &= 2(2q_1 + r_1) + r_0 = 2^2q_1 + 2r_1 + r_0\\
+      &\hdots\\
+      &= 2^{n-1}(2q_{n-1} + r_{n-1}) + 2^{n-1}r_{n-1} + \cdots + 2r_1 + r_0\\
+      &= 2^nq_{n-1} +2^{n-1}r_{n-1} + \cdots + 2r_1 + r_0\\
+      &= 2^nr^n +2^{n-1}r_{n-1} + \cdots + 2r_1 + r_0
+\end{align*}
+Lo que demuestra la validez del algoritmo.
+\end{problema}
+
+\begin{problema}[Esquema iterativo y criterio de paro]
+    Diseñe un algoritmo iterativo para aproximar un número real positivo \(\alpha\)
+
+    Supongamos que existe un función \(g\) tal que la sucesión 
+    \begin{align*}
+        x_0&=b\quad \text{para algún número } b\\
+        x_{k+1}&=g(x_k)\quad k\ge0
+    \end{align*}
+    tal que \(g(x_k)\to\alpha\) cuando \(k\to\infty\). Entonces podemos definir el siguiente algoritmo:
+    
+    \begin{algorithm}\caption{Algoritmo}
+        \begin{algorithmic}
+        \State \(x_0\gets b\)
+        \State \(\epsilon\gets 1\)
+        \While{\(\epsilon \ge 0.001\)}
+        \State \(x_1\gets g(x_0)\)
+        \State $\epsilon\gets\frac{x_1-x_0}{x_1}$
+        \State $x_1\gets x_0$
+        \EndWhile 
+        \end{algorithmic}
+    \end{algorithm}
+
+\end{problema}
+
+\begin{problema}[Cálculo del recíproco sin divisiones]\leavevmode
+    \begin{enumerate}
+        \item Diseñe un esquema iterativo para calcular \[\frac{1}{\alpha},\quad\alpha>0\]utilizando únicamente sumas y multiplicaciones.
+            
+
+        \item Analice el comportamiento del error del esquema propuesto y determine si la convergencia es lineal, cuadrática o de orden superior.
+    \end{enumerate}
+
+    Podemos distinguir tres casos 
+    \begin{enumerate}
+        \item Si \(\alpha=1\) entonces el inverso es simplemente \(\beta=1\)
+        \item Si \(\alpha<1\) entonces podemos expandir el inverso \(\frac{1}{\alpha}\) como una serie geométrica. 
+        \begin{equation}
+            \frac{1}{\alpha}=\frac{1}{1-(1-\alpha)}=\sum_{k=0}^\infty(1-\alpha)^k
+        \end{equation}
+        
+        Por lo tanto la sucesión 
+        \begin{align*}
+            x_0&=1\\
+            x_{k+1}&=x_k+(1-\alpha)^{k+1}=\sum_{n=0}^{k+1}(1-\alpha)^n\quad k\ge0
+        \end{align*}
+        converge al inverso de \(\alpha\).
+
+        Analizando el error tenemos que para $k\ge0$
+        \begin{align*}
+            \bigg|\frac{1}{\alpha}-x_{k+1}\bigg|&=\bigg|\sum_{n=k+2}^\infty(1-\alpha)^n\bigg|\\
+            &=(1-\alpha)\bigg|\sum_{n=k+1}^\infty(1-\alpha)^n\bigg|\\
+            &=(1-\alpha)\bigg|\frac{1}{\alpha}-x_{k}\bigg|
+        \end{align*}
+        Como $C=1-\alpha<1$ tenemos que el orden de convergencia de la serie es lineal. 
+        \item Si \(\alpha>1\) entonces podemos definir la función \(f(x)=\alpha x-1\). La raíz de esta función es precisamente el inverso de \(\alpha\), en particular \[0<\frac{1}{\alpha}<1\] como \(f(0)=-1\) y \(f(1)=\alpha-1>0\) podemos ocupar el método de la bisección. 
+    \end{enumerate}
+
+\end{problema}
+
+\begin{problema}[Iteraciones de punto fijo y orden superior]
+    Sea \(I\subset\mathbb{R}\) un intervalo y sea $f:I\to\mathbb{R}$ una función continuamente diferenciable. Suponga que existe \(x^*\in I\) tal que \[x^*=f(x^*)\]
+    Sea \(x_0\in I\) y considere la sucesión definida por \[x_{n+1}=f(x_n)\]
+    Defina el error \(e_n=x_n-x^*\).
+
+    \begin{enumerate}
+        \item Analice el comportamiento del error \(e_{n+1}\) en función de \(e_n\).
+        
+        Notemos que 
+        \begin{equation*}
+            |x_{n+1}-x^*|=|f(x_n)-f(x^*)|=f'(\xi)|x_n-x^*|
+        \end{equation*}
+
+        Para alguna \(\xi\) entre \(x_n\) y \(x^*\), esto por el teorema del valor medio. En particular, si la derivada de \(f(x)\) esta acotada por alguna constante \(C<1\), es decir, si \(f'(x)<=C\) para cada \(x\in I\), entonces, podemos asegurar que la sucesión \(\{x_n\}\) converge a \(x^*\) con orden lineal, pues en este caso
+             \begin{equation*}
+            |x_{n+1}-x^*|=f'(\xi)|x_n-x^*|\le C|x_n-x^*|
+        \end{equation*}
+        
+        \item Explique que significa que una sucesión tenga convergencia cuadrática
+        en términos del error.
+
+        Si el orden de convergencia es cuadrático, entonces existe una constante \(C\) y un entero \(N\) tal que \[|e_{n+1}|\le C|e_n|^2\] para toda \(n\ge N\), asumiendo que \(e_{n+1}\to0\) cuando \(n\to\infty\).
+
+        \item ¿Qué condiciones sobre \(f\) garantizan que la sucesión \(\{x_n\}\) tenga convergencia cuadrática? 
+        
+        Si suponemos que $f(x)$ es de clase \(C^2\) en \(I\), entonces por el teorema de Taylor tenemos que 
+        \[f(x)=f(x^*)+f'(x^*)(x-x^*)+\frac{f''(\xi)}{2}(x-x^*)^2\]
+
+        Para alguna \(\xi\) entre \(x\) y \(x^*\), si suponemos ademas que \(f'(x^*)=0\) y que existe una constante \(C\) tal que \(|f''(x)|\le C\) para toda \(x\in I\), entonces
+        \begin{align}
+            |f(x)-f(x^*)|=\biggl|\frac{f''(\xi)}{2}(x-x^*)^2\biggr|\le C|x-x^*|^2
+        \end{align}
+        
+        En particular, tentemos que para toda \(n>=0\) \[|e_{n+1}||x_{n+1}-x^*|\le C|x_n-x^*|^2=C|e_n|^2\] por lo que el orden de convergencia de la sucesión es cuadrático, tomando $x_0$ lo suficientemente cerca a $x^*$
+
+    \end{enumerate}
+    
+\end{problema}
+
+\begin{problema}[Estabilidad numérica]
+
+    \begin{enumerate}
+        \item 
+    \end{enumerate}
+    
+\end{problema}
+\end{document}
