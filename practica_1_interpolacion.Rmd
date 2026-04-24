@@ -1,0 +1,205 @@
+---
+title: "Práctica: Interpolación polinomial con datos de influenza"
+author: "Curso de Modelación"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Objetivo
+
+Trabajar en equipos para interpolar series de tiempo semanales de influenza usando dos enfoques distintos y comparar resultados:
+
+- **Equipo A:** Polinomio de Lagrange  
+- **Equipo B:** Splines cúbicos  
+
+---
+
+# Paso 0. Preparación
+
+```{r setup, message=FALSE}
+library(dplyr)
+library(ggplot2)
+```
+
+---
+# Paso 0. Descargar conjunto de datos
+
+```{r}
+local_path <- "C:/Users/Imelda/OneDrive - UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO/CCM_UNAM/1.Research/Proyectos/Influenza_Ejes_2025/data/"
+
+load(paste0(local_path,"influenza_seasons.Rdata"))
+```
+
+# Paso 1. Construcción de la serie semanal
+
+```{r}
+casos_semanales <- influenza_seasons %>%
+  filter(CLASIFICACION_FINAL_FLU == "CASO DE INFLUENZA CONFIRMADO") %>%
+  group_by(temporada, YEAR_EPI, SEMANA_EPI) %>%
+  summarise(
+    n_casos = n(),
+    .groups = "drop"
+  )
+```
+
+---
+
+# Paso 2. Selección de temporada
+
+```{r}
+datos_temp <- casos_semanales %>%
+  filter(temporada == unique(temporada)[1]) %>%
+  arrange(YEAR_EPI, SEMANA_EPI)
+```
+
+---
+
+# Paso 3. Variable de tiempo
+
+```{r}
+datos_temp <- datos_temp %>%
+  mutate(t = row_number())
+```
+
+---
+
+#Paso 4. Visualización inicial
+
+```{r}
+ggplot(datos_temp, aes(x = t, y = n_casos)) +
+  geom_point() +
+  
+  labs(title = "Casos semanales de influenza")
+
+```
+
+```{r}
+
+diff(datos_temp$t)
+
+```
+
+---
+
+# Trabajo por equipos
+
+Divídanse en dos equipos. Cada equipo desarrollará un método distinto.
+
+---
+
+#  Equipo A — Interpolación de Lagrange
+
+##  Implementación
+
+```{r}
+lagrange_interp <- function(x, y, x_new) {
+  n <- length(x)
+  y_new <- numeric(length(x_new))
+  
+  for (k in seq_along(x_new)) {
+    suma <- 0
+    
+    for (i in 1:n) {
+      producto <- 1
+      
+      for (j in 1:n) {
+        if (j != i) {
+          producto <- producto * (x_new[k] - x[j]) / (x[i] - x[j])
+        }
+      }
+      
+      suma <- suma + y[i] * producto
+    }
+    
+    y_new[k] <- suma
+  }
+  
+  return(y_new)
+}
+```
+
+## Evaluación
+
+```{r}
+t_vals <- datos_temp$t
+y_vals <- datos_temp$n_casos
+
+t_fino <- seq(min(t_vals), max(t_vals), length.out = 200)
+
+y_lagrange <- lagrange_interp(t_vals, y_vals, t_fino)
+```
+
+## Visualización
+
+```{r}
+plot(t_vals, y_vals, pch = 16, main = "Equipo A: Lagrange")
+lines(t_fino, y_lagrange, lty = 2)
+```
+
+## Preguntas para el equipo A
+
+- ¿Qué sucede al usar muchos puntos?
+- ¿Observan oscilaciones?
+- ¿Qué tan sensible es a valores extremos?
+
+---
+
+#  Equipo B — Splines cúbicos
+
+## Implementación
+
+```{r}
+t_vals <- datos_temp$t
+y_vals <- datos_temp$n_casos
+
+t_fino <- seq(min(t_vals), max(t_vals), length.out = 200)
+
+spline_fit <- spline(t_vals, y_vals, xout = t_fino, method = "natural")
+```
+
+## Visualización
+
+```{r}
+plot(t_vals, y_vals, pch = 16, main = "Equipo B: Splines")
+lines(spline_fit$x, spline_fit$y)
+```
+
+## Preguntas para el equipo B
+
+- ¿Por qué el ajuste es más suave?
+- ¿Qué pasa en los extremos?
+- ¿Qué ventaja tiene respecto a Lagrange?
+
+---
+
+# Puesta en común
+
+##  Comparación final
+
+```{r}
+plot(t_vals, y_vals, pch = 16, main = "Comparación de métodos")
+lines(t_fino, y_lagrange, lty = 2)
+lines(spline_fit$x, spline_fit$y)
+
+legend("topright",
+       legend = c("Lagrange", "Spline"),
+       lty = c(2,1))
+```
+
+---
+
+# Discusión grupal
+
+1. ¿Qué método es más estable?
+2. ¿Cuál usarían para predicción?
+3. ¿Cuál captura mejor la dinámica epidemiológica?
+4. ¿Interpolar es lo mismo que modelar?
+
+---
+
+# Reto adicional
+
+- Interpolar usando solo cada 2 semanas
+- Comparar resultados
+- Discutir diferencias entre equipos
+
