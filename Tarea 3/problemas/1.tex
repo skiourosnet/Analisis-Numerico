@@ -1,0 +1,51 @@
+\begin{problema}
+Demuestre que el método de Newton diverge para las siguientes funciones, sin importar el punto inicial real elegido:
+\begin{enumerate}[label=\alph*)]
+\item \(f(x)=x^2+1\) 
+La relación de recurrencia que se obtiene al aplicar el método de Newton a \(f\) es \[x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}=x_n-\frac{x_n^2+1}{2x_n}=\frac{x_n}{2}-\frac{1}{2x_n}\] multiplicando por \(2x_n\) en ambos lados de la igualdad tenemos que \[2x_{n+1}x_n=x_n^2-1\]supongamos que la sucesión \(\{x_n\}\) converge a un número real \(y\), entonces al tomar el límite cuando \(n\to\infty\) en ambos lados de la igualdad tenemos que \[2y^2=y^2-1\]
+de donde \(y\) satisface la igualdad \(y^2+1=0\). Lo cual es una contradicción, por lo tanto, el método de Newton diverge para \(f\).
+
+\item \(f(x)=7x^4+3x^2+\pi\) 
+La relación de recurrencia que se obtiene al aplicar el método de Newton a \(f\) es \[x_{n+1}=x_n+\frac{x_n}{f'(x_n)}\]
+multiplicando por \(f'(x_n)\) tenemos que \[x_{n+1}f'(x_n)=x_nf'(x_n)-f(x_n)\]
+supongamos como en el inciso anterior que la sucesión \(\{x_n\}\) converge a un número real \(y\), entonces al tomar límite cuando \(n\to\infty\) en ambos lados de la igualdad anterior tenemos que \[yf'(y)=yf'(y)-f(y)\] de donde \(f(y)=7y^4+6^2+\pi=0\). Pero esto es una contradicción, ya que \(f(y)\ge\pi>0\) por lo tanto, el método de Newton diverge para \(f\)
+\end{enumerate}
+\end{problema}
+
+\vspace{1cm}
+\begin{problema}
+Si el método de Newton se aplica a \(f(x)=x^2-1\) con \(x_0=10^{10}\), ¿cuántos pasos del método iterativo se requieren para obtener la raíz con una precisión de \(10^{-8}\)?
+\end{problema}
+
+
+\vspace{1cm}
+\begin{problema}[Teorema del punto fijo - formulación alternativa]
+Sea \(g:[a,b]\to\mathbb{R}\) una función continua tal que \(g([a,b]\subset[a,b])\). Si \(g\) es una contracción:
+
+\vspace{1cm}
+\begin{enumerate}[label=\alph*)]
+    \item Demuestre que \(g\) tiene un único punto fijo \(\hat{x}\) en \([a,b]\).
+    
+    Como \(g([a,b]\subset[a,b])\) sabemos que \(g\) tiene al menos un punto fijo. Supongamos entonces que \(\hat{x}\) y \(\hat{y}\) son dos puntos fijos de \(g\), entonces \[|\hat{x}-\hat{y}|=|g(\hat{x})-g(\hat{y})|\le L|\hat{x}-\hat{y}|\] entonces \[|\hat{x}-\hat{y}|(1-L)\le0\] como \(1-L>0\), la igualdad es cierta si y solo si \(|\hat{x}-\hat{y}|=0\), de modo que \(\hat{x}=\hat{y}\), y entonces \(g\) tiene un único punto fijo.
+
+    \item Demuestre que la iteración \(x_{k+1}=g(x_k)\) converge a \(\hat{x}\) para cualquier valor inicial \(x_0\in[a,b]\).
+    
+    Usando que \(\hat{x}\) es punto fijo tenemos que, para \(k\ge1\) se tiene la siguiente cadena de desigualdades \[|x_{k}-\hat{x}|=|g(x_{k-1})-g(\hat{x})|\le L|x_{k-1}-\hat{x}|\le\cdots\le L^k|x_0-\hat{x}|\] en donde aplicamos iteradamente que \(g\) es una contracción. Tenemos entonces que \[|x_k-\hat{x}|\le L^k|x_0-\hat{x}|\] como \(L<1\) y \(|x_0-\hat{x}|\) es constante, entonces para\(k\) suficiente grande podemos asegurar \(x_k\) esta tan cerca de \(\hat{x}\) como queramos. Por lo tanto \(x_k\to\hat{x}\) cuando \(k\to\infty\).
+
+    \item Si \(g\) es diferenciable, determine \(\lim_{k\to\infty}\frac{|x_{k+1}-\hat{x}|}{|x_k-\hat{x}|}\) 
+    
+    Como \(\hat{x}\) es un punto fijo \(x_k\to\hat{x}\) cuando \(k\to\infty\), tenemos que 
+    \begin{align*}
+        \lim_{k\to\infty}\frac{|x_{k+1}-\hat{x}|}{|x_k-\hat{x}|}&=\lim_{k\to\infty}\frac{|g(x_k)-\hat{x}|}{|x_k-\hat{x}|}\\[1em]
+        &=\lim_{x_k\to\hat{x_k}}\frac{|g(x_k)-\hat{x}|}{|x_k-\hat{x}|}\\[1em]
+        &=g'(\hat{x})
+    \end{align*}    
+    por lo tanto el limite es igual a la derivada de \(g\) evaluada en su punto fijo.
+
+    \item concluya por que el método tiene convergencia lineal.
+    Por el inciso a) sabemos que \(|x_{k+1}-\hat{x}|\le L|x_k-\hat{x}|\) para toda \(k\ge0\), y como \(L<1\) tenemos por definición que el orden de convergencia para el método de punto fijo es lineal.
+
+    
+\end{enumerate}
+
+\end{problema}

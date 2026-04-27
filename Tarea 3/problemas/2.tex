@@ -1,0 +1,143 @@
+\vspace{1cm}
+\begin{problema}[Análisis riguroso del método de Newton]
+Considere la ecuación escalar \(F(x)=0\). Suponga que \(\alpha\) es una raíz de la ecuación.
+\begin{enumerate}[label=\alph*)]
+    \item Escriba la fórmula de recursión del método de Newton para aproximar la raíz.
+    \begin{align*}
+        x_0&=y\\[1em]
+        x_{n+1}&=x_n-\frac{F(x_n)}{F'(x_{n+1})}\quad n\ge0
+    \end{align*}
+    para alguna \(y\) en el dominio de \(F\).
+
+    \item Enuncie condiciones sobre \(F(x)\) en una vecindad de \(\alpha\) que garantice la convergencia del método de Newton para \(x_0\) suficientemente cerca de \(alpha\).
+    
+    Para garantizar la convergencia podemos pedir que
+    \begin{enumerate}[label=\roman*)]
+        \item \(F'(\alpha),\ F''(\alpha)\not=0\)
+        \item \(F\) sea de clase \(C^2\) en una vecindad \(I_\delta=[\alpha-\delta, \alpha+\delta]\) de \(\alpha\).
+        \item \(\dfrac{|f''(x)|}{|f'(y)|}\le A\quad\forall\ x,y\in I_\delta\) y \(A\) una constante positiva.
+        \item El termino inicial $x_0$ en la sucesión sea tal que \(|\alpha-x_0|\le\min{\delta, 1/A}\)
+    \end{enumerate}
+    \item Considere la siguiente expansión de Taylor:
+    \[F(\alpha)=F(x)+F'(x)(\alpha-x)+\frac{1}{2}F''(w)(\alpha-x)^2\]
+    usando esta expansión de Taylor, derive una relación entre el error en el paso \(j+1\) en términos del error en el paso \(j\). 
+
+    Tomando \(x=x_{j}\) y recordando que \(F(\alpha)=0\), la formula de Taylor anterior se transforma en  
+    \[F(x_j)+F'(x_j)(\alpha-x_{j})+\frac{1}{2}F''(w)(\alpha-x_{j})^2=0\]
+    de donde al dividir por \(F'(x_j)\) tenemos que
+    \[\alpha-\left(x_j-\frac{F(x_j)}{F'(x_j)}\right)=\alpha-x_{j+1}=-\frac{F''(w)}{2F'(x_j)}(\alpha-x_j)^2\]
+    por lo tanto \[e_{j+1}=-\frac{F''(w)}{2F'(x_j)}e_j^2\tag{\(\ast\)}\label{error}\]
+
+    \item Sea \(h=\min\{\delta, 1/A\}\), supongamos que \(|\alpha-x_{j}|\le h\), entonces se satisfacen las condiciones \[x_j\in I_\delta,\qquad e_j=|\alpha-x_j|\le\frac{1}{A},\qquad\frac{|F''(w)|}{|F'(x_j|)}\le A\] aplicando valor absoluto y sustituyendo en la \cref{error} obtenemos que \[|e_{j+1}|\le\frac{1}{2}|e_j|\]
+    
+    \item Demuestre cómo el desarrollo anterior puede utilizarse para establecer la convergencia del método de Newton. ¿Con qué orden converge la iteración?
+    
+    Por hipótesis \(|\alpha-x_0|\le h=\min{\delta, 1/A}\), por lo tanto del inciso anterior tenemos que
+    \[h\ge|\alpha-x_0|\ge\frac{1}{2}|\alpha-x_1|\ge\cdots\ge\frac{1}{2^j}|\alpha-x_j|\]
+    es decir\[|\alpha-x_j|\le\frac{h}{2^j}\]
+    de donde concluimos que \(x_j\to\alpha\) cuando \(j\to\infty\).
+    
+    Luego, por la \cref{error} tenemos que
+    \[\lim_{j\to\infty}\frac{|e_{j+1}|}{|e_j|^2}=\lim_{j\to\infty}\frac{|F''(w)|}{2|F'(x_j)|}=\frac{|F''(\alpha)|}{2|F'(\alpha)|}\]
+
+    la ultima igualdad se satisface que \(F\) es de clase \(C^2\) y a que \(w=w_j\to\alpha\) cuando \(j\to\infty\), ya que \(w_j\) se encuentra entre \(\alpha\) y \(x_j\). Cómo por hipótesis \(F'(\alpha),\ F''(\alpha)\not=0\), el límite anterior es diferente de cero,  por lo que por definición, el orden de convergencia es cuadrático.
+\end{enumerate}
+\end{problema}
+
+
+\vspace{1cm}
+\begin{problema}[Análisis del método de la secante] \leavevmode
+\begin{enumerate}[label=\alph*)]
+    \item Derive la fórmula de recursión del método de la secante.
+    Supongamos que \(f\) tiene una raíz \(alpha\), y es diferenciable en una vecindad \(I=[\alpha-h, \alpha+h]\) de \(alpha\), entonces la derivada de \(f\) puede aproximarse mediante \[f'(x)\approx\frac{f(x)-f(y)}{x-y}\] para alguna \(y\) suficientemente cercana a \(x\).
+
+    Aplicando esta aproximación en el método de Newton, podemos definir el siguiente método iterativo
+
+    \[x_{k+1}=x_k-f(x_k)\left(\frac{x_k-x_{k-1}}{f(x_k)-f(x_{k-1})}\right)\approx x_k-f(x_k)\frac{1}{f'(x_k)}\quad k\ge1\]
+
+    \item Para la convergencia de la sucesión \(\{x_k\}\) son suficientes las siguientes condiciones
+    \begin{enumerate}[label=\roman*)]
+        \item \(f\) es de clase \(C^1\) en \(I\)
+        \item \(f'(\alpha)\not=0\)
+        \item \(x_0\) y \(x_1\) están suficientemente cerca de \(\alpha\)
+    \end{enumerate}
+
+    \item Suponiendo que se tiene la convergencia \(x_k\to\alpha\) Notemos que
+    \begin{align*}
+        x_{k+1}&=x_k-f(x_k)\left(\frac{x_k-x_{k-1}}{f(x_k)-f(x_{k-1})}\right)\\[1em]
+               &=\frac{x_k[f(x_k)-f(x_{k-1})]-f(x_k)[x_k-x_{k-1}]}{f(x_k)-f(x_{k-1})}\\[1em]
+               &=\frac{x_{k-1}f(x_k)-x_kf(x_{k-1})}{f(x_k)-f(x_{k-1})}
+    \end{align*}
+
+    y que 
+
+    \begin{align*}
+        x_{k+1}-\alpha&=\frac{x_{k-1}f(x_k)-x_kf(x_{k-1})}{f(x_k)-f(x_{k-1})}-\alpha\\[1em]
+        &=\frac{(x_{k-1}-\alpha)f(x_k)-(x_k-\alpha)f(x_{k-1})}{f(x_k)-f(x_{k-1})}\\[1em]
+    \end{align*}
+    factorizando la expresión anterior por \((x_{k-1}-\alpha)(x_k-\alpha)\) y multiplicando por un 1, obtenemos la siguiente relación.
+
+    \begin{equation*}
+        x_{k+1}-\alpha=\left(\frac{x_k-x_{k-1}}{f(x_k)-f(x_{k-1})}\right)\left(\frac{\dfrac{f(x_k)}{x_k-\alpha}-\dfrac{f(x_{k-1})}{x_{k-1}-\alpha}}{x_k-x_{k-1}}\right)(x_{k-1}-\alpha)(x_k-\alpha)
+    \end{equation*}
+
+    Podemos reescribir esta expresión como
+    \begin{equation*}
+        \frac{x_{k+1}-\alpha}{(x_{k-1}-\alpha)(x_k-\alpha)}=\left(\dfrac{x_k-x_{k-1}}{f(x_k)-f(x_{k-1})}\right)\left(\frac{\dfrac{f(x_k)-f(\alpha)}{x_k-\alpha}-\dfrac{f(x_{k-1})-f(\alpha)}{x_{k-1}-\alpha}}{x_k-x_{k-1}}\right)
+    \end{equation*}
+
+    En donde usamos que \(f(\alpha)=0\). Pero entonce, al tomar el límite cuando \(x_k, x_{k-1}\to\alpha\) tenemos que
+    
+    \begin{align*}
+        \lim_{x_k, x_{k-1}\to\alpha} \frac{x_{k+1}-\alpha}{(x_{k-1}-\alpha)(x_k-\alpha)}=\frac{1}{f'(\alpha)}\frac{f''(\alpha)}{2}
+    \end{align*}
+\end{enumerate}
+
+\textit{nota:} Me falto probar el limite del segundo paréntesis, $\frac{f''(\alpha)}{2}$.
+
+Sea \(C=\dfrac{f''(\alpha)}{2f'(\alpha)}\), notemos que \(C\) esta bien definida pues \(f'(\alpha)\not=0\) y es diferente de cero, ya que \(f''(\alpha)\not=0\) por hipótesis. El límite anterior nos dice en particular que para \(k\) suficientemente grande 
+\[x_{k+1}\approx A(x_{k}-\alpha)(x_{k-1}-\alpha)\]
+
+Reescribiendo tenemos \(e_{k+1}\approx Ce_{k}e_{k-1}\). Supongamos ahora que
+\[
+\lim_{k\to\infty}\frac{|e_{k+1}|}{|e_k|^q}=A
+\]
+para alguna \(q>0\). En particular tenemos \(|e_{k}|\approx A|e_{k-1}|^q\), de donde se tienen la siguiente cadena de aproximaciones
+\[
+|e_k|^{1/q}\approx A^{1/q}|e_k-1|
+\]
+luego, multiplicando por \(|e_{k}|\)
+\[
+|e_k|^{1/q+1}\approx A^{1/q}|e_{k-1}||e_k|\approx A^{1/q}C|e_{k+1}|\approx A^{1/q}C\cdot A|e_k|^{q}
+\]
+De donde se tiene la siguiente relación
+\[
+|e_k|^{1/q+1-q}\approx A^{1/q+1}C
+\]
+Dado que \(e_k\to0\), y \(A^{1/q+1}C\) la única manera en la que esta relación puede ser cierta, es que \(1/q+1-q=0\), de donde ademas tenemos la igualdad \(A^{1/q+1}C=1\).
+
+Reescribiendo tenemos que \(q\) es la raíz positiva del polinomio \(q^2-q-1=0\), resolviendo para \(q\) tenemos 
+\[q=\frac{1+\sqrt{5}}{2}\approx 1.618...\] que es el número áureo.
+
+\item Las diferencias en el desempeño entre el método de Newton y el método de la secante son principalmente dos:
+\begin{enumerate}[label=\roman*)]
+    \item Orden de convergencia: Dado que el método de Newton tiene convergencia cuadrática, el número de iteraciones para aproximar la raíz de la función para una tolerancia dada es menor al que se requeriría en el método de la secante que tiene orden de convergencia \(q<2\).
+    \item Costo computacional por iteración: El método de Newton requiere calcular el valor de la derivada \(f'(x_k)\) en cada paso, lo cual es costoso en la práctica, mientras que para el método de la secante únicamente se requiere conocer el valor de \(f(x_k)\) en cada nueva iteración (el valor de \(f(x_{k-1})\) se obtuvo en la iteración previa).
+\end{enumerate}
+\end{problema}
+
+\vspace{1cm}
+\begin{problema}
+Notemos que la fracción continua puede escribirse como la siguiente relación de recurrencia
+\begin{align*}
+    x_0&=1\\
+    x_{n+1}&=\frac{1}{p+x_n}
+\end{align*}
+La función subyacente en este problema es \[f(x)=\frac{1}{p+x}\] cuya derivada satisface, para \(x\ge 0\)
+\[|f'(x)|=\frac{1}{(p+x)^2}\le\frac{1}{p}<1\]
+por lo tanto, como la derivada de \(f\) es menor a 1 en \([0,\infty)\), entonces tiene un único punto fijo en este intervalo. Aplicando el método de punto fijo para esta función, y tomando como valor inicial \(x_0=1\), obtenemos la relación de recurrencia del inicio, la cual ahora sabemos que debe de converger al punto fijo, es decir se tiene que 
+\[x=\frac{1}{p+x}\]
+Reescribiendo, \(x\) satisface el polinomio \(x^2+px-1=0\) cuya solución positiva es 
+\[x=\frac{-p+\sqrt{p^2+4}}{2}\]
+la cual corresponde al valor de la fracción continua.
+\end{problema} 
