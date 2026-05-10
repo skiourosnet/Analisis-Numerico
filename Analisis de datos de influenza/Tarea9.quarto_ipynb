@@ -1,0 +1,853 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: Hospitalizaciones y defunciones semnales\n",
+        "jupyter: python3\n",
+        "---\n",
+        "\n",
+        "\n",
+        "\n",
+        "## Filtrado de los datos"
+      ],
+      "id": "7a6a9fba"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Importamos las librerias necesarias\n",
+        "import pandas as pd \n",
+        "import numpy as np\n",
+        "import matplotlib.pyplot as plt\n",
+        "plt.rcParams['text.usetex'] = True\n",
+        "import seaborn as sns\n",
+        "from statsmodels.nonparametric.smoothers_lowess import lowess\n",
+        "from scipy.interpolate import PchipInterpolator"
+      ],
+      "id": "cbfc272b",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Simbología\n",
+        "\n",
+        "- CASOS_SINT = casos sintomáticos\n",
+        "- CASOS_HOSP = casos hospitalizaciones \n",
+        "- CASOS_DEF = casos defunciones "
+      ],
+      "id": "1bb1e6f9"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "df = pd.read_csv(\"influenza_glm_ready.csv\") # Importamos el dataset\n",
+        "influenza = df[['SEMANA_RELATIVA', \"CASOS_SINT\", \"CASOS_HOSP\", \"CASOS_DEF\", \n",
+        "                'FLAG_SINT', 'FLAG_HOSP','FLAG_DEF']] # Filtramos los datos de nuestro interés.\n",
+        "influenza.head().style.set_properties(**{'text-align': 'center'}\n",
+        "                ).hide(axis='index'\n",
+        "                ).set_caption(\"Resumen de los datos de Influenza\")"
+      ],
+      "id": "57f5586c",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## Inspección de los datos"
+      ],
+      "id": "bd571550"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "plt.rcParams['figure.dpi'] = 300\n",
+        "fig, ax = plt.subplots(3, figsize = (10,7))\n",
+        "colors = ['#3f64a1', '#f5425a']\n",
+        "\n",
+        "casos =  [\"SINT\", \"HOSP\", \"DEF\"]\n",
+        "\n",
+        "for i in range(3):\n",
+        "    sns.scatterplot(\n",
+        "        data=influenza, \n",
+        "        x = \"SEMANA_RELATIVA\", \n",
+        "        y = \"CASOS_\" + casos[i],\n",
+        "        hue = \"FLAG_\" + casos[i],\n",
+        "        palette = colors,\n",
+        "        ax = ax[i]\n",
+        "    )\n",
+        "    ax[i].set_xticks([1, 10, 20, 30, 40, 50])\n",
+        "    ax[i].set_xlabel(None)\n",
+        "    ax[i].tick_params(axis='both', which='major', labelsize=12)\n",
+        "    ax[i].legend(prop={'size': 13})\n",
+        "    \n",
+        "fig.supxlabel(\"SEMANA RELATIVA\")\n",
+        "\n",
+        "ax[0].set_ylabel(\"SINTOMATICOS\")\n",
+        "ax[1].set_ylabel(\"HOSPITALIZACIONES\")\n",
+        "ax[2].set_ylabel(\"DEFUNCIONES\")\n",
+        "\n",
+        "ax[0].set_xticklabels([])\n",
+        "ax[1].set_xticklabels([])\n",
+        "\n",
+        "fig.suptitle(\"Casos por semana\")\n",
+        "#fig.text(1,1,\"HOla\")\n",
+        "plt.tight_layout()\n",
+        "plt.show()"
+      ],
+      "id": "313a45a3",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## a) Preprocesamiento\n",
+        "\n",
+        "### Semanas con datos faltantes o no reportados"
+      ],
+      "id": "6516edbd"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# Filtramos aquellas semanas para las cuales una de las \"FLAGS\" aparece como no_reportado\n",
+        "NoReportes = influenza[(influenza[\"FLAG_SINT\"] == \"sin_reporte\") | \n",
+        "                       (influenza[\"FLAG_HOSP\"] == \"sin_reporte\") |\n",
+        "                       (influenza[\"FLAG_DEF\"] == \"sin_reporte\")\n",
+        "]\n",
+        "def resaltar_sin_reporte(val):\n",
+        "    color = 'cyan' if val == 'sin_reporte' else ''\n",
+        "    return f'background-color: {color}'\n",
+        "\n",
+        "estilo_tabla = (\n",
+        "    NoReportes.style\n",
+        "    .hide(axis='index')\n",
+        "    .set_caption(\"Semanas con al menos uno de los casos etiquetados como sin_reporte\")\n",
+        "    .map(resaltar_sin_reporte)\n",
+        "    .set_properties(**{'text-align': 'center'})\n",
+        "    .set_table_styles([\n",
+        "        # Estilo para los encabezados (th)\n",
+        "        dict(selector='th', props=[('text-align', 'center'), ('background-color', '#f2f2f2')]),\n",
+        "        \n",
+        "        # ESTILO PARA EL TÍTULO (caption)\n",
+        "        dict(selector='caption', props=[\n",
+        "            ('font-size', '15px'),    # Aquí ajustas el tamaño (ej. 20px, 1.5em, etc.)\n",
+        "            ('padding', '10px')       # Opcional: espacio entre el título y la tabla\n",
+        "        ])\n",
+        "    ])\n",
+        ")\n",
+        "estilo_tabla"
+      ],
+      "id": "8a91ba5e",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## b) Modelo 1 - Interpolación\n",
+        "\n",
+        "Interpolaremos los datos utilizando un **spline cubico de Hermite**.\n",
+        "Para ello emplearemos la función `PchipInterpolator` de la libreria `SciPy`\n",
+        "\n",
+        "**Notas** \n",
+        "\n",
+        "**i)** Para los modelos 1 y 2, la interpolación (y regresión) se realizara en los puntos $x_i=i-\\text{iésima semana relativa tal que hay casos observados}$. Por lo tanto el intervalo de los datos será $I=[1, 52]$. Luego cada subintervalo $[i, i+1],\\ 1\\le i\\le 1$ se subdividira en 7 intervalos igualmente espaciados en los cuales se realizaran las predicciones, del modelo correspondiente, dandonos su curva de interpolación o de regresión.\n",
+        "\n",
+        "**ii)** En cada caso se agregara al dataset una columna adicional con el valor retornado por cada modelo, para cada uno de los casos (SINT, HOSP, DEF) tanto para los etiquetados como observado, como para los etiquetados como sin_reporte.\n",
+        "\n",
+        "**iii)** En cada caso las predicciones de los modelos se han redondeado a un entero. Esto para ser consistente con una cantidad entera de casos por día."
+      ],
+      "id": "fd0b3936"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fig, ax = plt.subplots(3, figsize = (12,12))\n",
+        "\n",
+        "casos =  [\"SINT\", \"HOSP\", \"DEF\"]\n",
+        "titulos = [\"Casos Sintomáticos\", \"Casos Hospitalizaciones\", \"Casos Defunciones\"]\n",
+        "\n",
+        "for i in range(3):\n",
+        "    SemanasConReporte = influenza[influenza[\"FLAG_\" + casos[i]] == \"observado\"][\"SEMANA_RELATIVA\"]\n",
+        "    SemanasSinReporte = influenza[influenza[\"FLAG_\" + casos[i]] == \"sin_reporte\"][\"SEMANA_RELATIVA\"]\n",
+        "    CasosObservados = influenza[influenza[\"FLAG_\" + casos[i]] == \"observado\"][\"CASOS_\" + casos[i]]\n",
+        "\n",
+        "    PCHIP = PchipInterpolator(SemanasConReporte, CasosObservados)\n",
+        "    X = np.linspace(1, 52, 7*51+1)\n",
+        "    Y = PCHIP(X)\n",
+        "    Imputaciones = PCHIP(SemanasSinReporte)\n",
+        "\n",
+        "    ax[i].plot(X, Y, '--', label = \"PCHIP\", )\n",
+        "    ax[i].plot(SemanasConReporte, CasosObservados, 'k.', label='observaciones originales')\n",
+        "    ax[i].plot(SemanasSinReporte, Imputaciones, 'kX', label='imputaciones')\n",
+        "    \n",
+        "    ax[i].grid(True, linestyle='--', alpha=0.7)\n",
+        "    ax[i].set_title(titulos[i], size=15)\n",
+        "    ax[i].set_xticks([1, 10, 20, 30, 40, 50])\n",
+        "    ax[i].set_xlabel(None)\n",
+        "\n",
+        "    ax[i].tick_params(axis='both', which='major', labelsize=12)\n",
+        "\n",
+        "    influenza[\"CASOS_\" + casos[i] + \"_PCHIP\"] = np.round(Y[0:7*51+1:7], decimals=0)\n",
+        "\n",
+        "fig.supxlabel(\"SEMANA RELATIVA\", size=15)\n",
+        "fig.suptitle(\"Interpolación del número de casos para datos de influenza mediante Spline Cúbico de Hermite\", size=15)\n",
+        "\n",
+        "ax[0].set_xticklabels([])\n",
+        "ax[1].set_xticklabels([])\n",
+        "ax[0].legend(loc='upper right', fancybox=True, ncols=1, shadow=True, bbox_to_anchor=(1.3,1), prop={'size': 13})\n",
+        "\n",
+        "plt.tight_layout()\n",
+        "plt.show() "
+      ],
+      "id": "f8ed62ce",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## c) Modelo 2 - Regresión Generalizada\n",
+        "\n",
+        "Utilizamos un suavizamiento de la serie de tiempo mediante una regresión robusta local ponderada (LOWESS). Para ello emplearemos la función `lowess` de la libreria `statsmodels`.\n",
+        "\n",
+        "Este metodo pondera los datos realizando una predicción en el punto $x_i$ de la serie tomando en consideración solo los primeros $rN-{ésimos}$ vecinos a la derecha de $x_i$, en donde\n",
+        "\n",
+        "- $N$ es el tamaño de los datos.\n",
+        "- $0<r\\le1$ correspond a la fraccion de los datos sobre los que qureremos ponderar respecto a cada $x_i$.\n",
+        "- \n",
+        "El valor de  $r$ se escoge segun sea conveniente, por ejemplo, disminuyendo los valores residuales. Para este caso utilizaremos el valor de $r=0.5$ como deafault, lo cual corresponde a ponderar sobre la mitad de los datos."
+      ],
+      "id": "985f53ca"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fig, ax = plt.subplots(3, figsize = (12,12))\n",
+        "\n",
+        "casos =  [\"SINT\", \"HOSP\", \"DEF\"]\n",
+        "titulos = [\"Casos Sintomáticos\", \"Casos Hospitalizaciones\", \"Casos Defunciones\"]\n",
+        "ErrorModelos = {caso:[0.0] for caso in casos}\n",
+        "\n",
+        "for i in range(3):\n",
+        "    SemanasConReporte = influenza[influenza[\"FLAG_\" + casos[i]] == \"observado\"][\"SEMANA_RELATIVA\"]\n",
+        "    SemanasSinReporte = influenza[influenza[\"FLAG_\" + casos[i]] == \"sin_reporte\"][\"SEMANA_RELATIVA\"]\n",
+        "    CasosObservados = influenza[influenza[\"FLAG_\" + casos[i]] == \"observado\"][\"CASOS_\" + casos[i]]\n",
+        "    \n",
+        "    X = np.linspace(1, 52, 7*51+1)\n",
+        "\n",
+        "    Regression = lowess(CasosObservados, SemanasConReporte,  xvals=X, frac=0.5)\n",
+        "\n",
+        "    ax[i].plot(X, Regression, 'r--', label = \"LOWESS\", )\n",
+        "    ax[i].plot(SemanasConReporte, CasosObservados, 'k.', label='observaciones originales')\n",
+        "    ax[i].plot(SemanasSinReporte, Regression[7*SemanasSinReporte.index], 'kX', label='imputaciones')\n",
+        "\n",
+        "    ax[i].grid(True, linestyle='--', alpha=0.7)\n",
+        "    ax[i].set_title(titulos[i], size=15)\n",
+        "    ax[i].set_xticks([1, 10, 20, 30, 40, 50])\n",
+        "\n",
+        "    ax[i].tick_params(axis='both', which='major', labelsize=12)\n",
+        "\n",
+        "    # Cálculo del error cuadrático\n",
+        "    ErroresCuadraticos = (CasosObservados[SemanasConReporte.index] - Regression[7*SemanasConReporte.index]) ** 2\n",
+        "    PromedioErrores = np.mean(ErroresCuadraticos)\n",
+        "    RMSE = np.sqrt(PromedioErrores)\n",
+        "    ErrorModelos[casos[i]].insert(0, RMSE)\n",
+        "\n",
+        "    influenza[\"CASOS_\" + casos[i] + \"_LOWESS\"] = np.round(Regression[0:7*51+1:7], decimals=0)\n",
+        "\n",
+        "\n",
+        "ax[0].set_xticklabels([])\n",
+        "ax[1].set_xticklabels([])\n",
+        "\n",
+        "fig.supxlabel(\"SEMANA RELATIVA\")\n",
+        "fig.suptitle(\"Aproximación del número de casos para datos de influenza mediante LOWESS con r=0.5\", size=15)\n",
+        "ax[0].legend(loc='upper right', fancybox=True, ncols=1, shadow=True, bbox_to_anchor=(1.3,1), prop={'size': 13})\n",
+        "\n",
+        "plt.tight_layout()\n",
+        "plt.show()"
+      ],
+      "id": "1c1b35fe",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## d) Errores de Estimación\n",
+        "\n",
+        "Dado que nos interesa saber que tan bien se ajusta la interpolación y la regresión a nuestros datos observados, conviene saber que tan dispersos estan de la curva obtenida. Por lo que utilizaremos la Raiz del Error Cuadrático Medio (**RMSE**)\n",
+        "$$\n",
+        "\\sqrt{\\frac{1}{n}\\sum\\left(\\hat{y}_i-y_i\\right)^2}\n",
+        "$$\n",
+        "La cual nos da la desvación estandar de los valores residuales.  Notemos que en el caso del Modelo 1, que consistio en interpolar los datos, el **RMSE** es 0 en este caso, pues por la naturaleza del modelo, nos interesa que el modelo coincida con los valores observados en los puntos correspondientes cada semana."
+      ],
+      "id": "a3d677cf"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "df = pd.DataFrame(ErrorModelos)\n",
+        "df.index = [\"LOWESS\",\"PCHIP\"]\n",
+        "estilo_tabla = (\n",
+        "    df.style\n",
+        "    .set_caption(\"RMSE para los modelos 1 y 2\")\n",
+        "    .map(resaltar_sin_reporte)\n",
+        "    .set_properties(**{'text-align': 'center'})\n",
+        "    .set_table_styles([\n",
+        "        # Estilo para los encabezados (th)\n",
+        "        dict(selector='th', props=[('text-align', 'center'), ('background-color', '#f2f2f2')]),\n",
+        "        \n",
+        "        # ESTILO PARA EL TÍTULO (caption)\n",
+        "        dict(selector='caption', props=[\n",
+        "            ('font-size', '15px'),    # Aquí ajustas el tamaño (ej. 20px, 1.5em, etc.)\n",
+        "            ('padding', '10px')       # Opcional: espacio entre el título y la tabla\n",
+        "        ])\n",
+        "    ])\n",
+        "    .format(precision=2)\n",
+        ")\n",
+        "\n",
+        "estilo_tabla"
+      ],
+      "id": "86d1fc28",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Vemos entonces que por diseño del modelo, PCHIP es quien no solo aproxima mejor los datos, sino que los interpola, en este sentido, nuestro modelo esta aprendiendo los datos, lo cual podría no ser la mejor opción si nuestro interes es predecir un aproximado del número de casos para las semanas sin reportes. LOWESS es entonces una opción más adecuada, pues aprende mejor las tendencias de la serie temporal.\n",
+        "\n",
+        "## e) Totales y comparación\n",
+        "\n",
+        "Calcularemos el total acumulado de hospitalizaciones y defunciones."
+      ],
+      "id": "79c0d619"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "modelos = [\"PCHIP\", \"LOWESS\"]\n",
+        "casos =  [\"HOSP\", \"DEF\"]\n",
+        "index = [\"Hospitalizaciones\", \"Defunciones\"]\n",
+        "\n",
+        "CasosAcumulados = {\"Datos Originales\":[], \"PCHIP\":[], \"LOWESS\":[]}\n",
+        "\n",
+        "for caso in casos:\n",
+        "    N = influenza[\"CASOS_\" + caso].sum()\n",
+        "    CasosAcumulados[\"Datos Originales\"].append(N)\n",
+        "\n",
+        "\n",
+        "for modelo in modelos:\n",
+        "    for caso in casos:\n",
+        "        N = influenza[\"CASOS_\" + caso + \"_\" + modelo].sum()\n",
+        "        CasosAcumulados[modelo].append(N)\n",
+        "\n",
+        "CasosAcumulados = pd.DataFrame(CasosAcumulados)\n",
+        "CasosAcumulados.index = casos\n",
+        "\n",
+        "estilo_tabla = (\n",
+        "    CasosAcumulados.style\n",
+        "    .set_caption(\"Casos totales acumulados para los diferentes modelos y casos\")\n",
+        "    .map(resaltar_sin_reporte)\n",
+        "    .set_properties(**{'text-align': 'center'})\n",
+        "    .set_table_styles([\n",
+        "        # Estilo para los encabezados (th)\n",
+        "        dict(selector='th', props=[('text-align', 'center'), ('background-color', '#f2f2f2')]),\n",
+        "        \n",
+        "        # ESTILO PARA EL TÍTULO (caption)\n",
+        "        dict(selector='caption', props=[\n",
+        "            ('font-size', '15px'),    # Aquí ajustas el tamaño (ej. 20px, 1.5em, etc.)\n",
+        "            ('padding', '10px')       # Opcional: espacio entre el título y la tabla\n",
+        "        ])\n",
+        "    ])\n",
+        "    .format(precision=0)\n",
+        ")\n",
+        "\n",
+        "\n",
+        "estilo_tabla"
+      ],
+      "id": "e6e5d979",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Comparando los datos podemos notar que el modelo PCHIP predice más hospitalizaciones respecto al modelos LOWESS.\n",
+        "Por otra parte, el modelo LOWESS predice mayor número de defunciones respecto al modelo PCHIP\n",
+        "\n",
+        "# Bonus\n",
+        "\n",
+        "Crearemos un dataframe llamado `HospAcumuladas` para guardar la serie de hospitalizaciones acumuladas, rellenando con las predicciones del modelo LOWESS."
+      ],
+      "id": "4097a2af"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "HospAcumuladas = influenza[[\"CASOS_HOSP_LOWESS\"]].cumsum()\n",
+        "HospAcumuladas = HospAcumuladas.rename(columns={\"CASOS_HOSP_LOWESS\": \"HOSP_ACUMULADAS\"})\n",
+        "HospAcumuladas.index = influenza[\"SEMANA_RELATIVA\"]\n",
+        "\n",
+        "\n",
+        "fig, ax = plt.subplots(figsize = (10,5))\n",
+        "colors = ['#3f64a1', '#f5425a']\n",
+        "\n",
+        "sns.scatterplot(\n",
+        "    data=HospAcumuladas, \n",
+        "    x = \"SEMANA_RELATIVA\", \n",
+        "    ax = ax\n",
+        "    )\n",
+        "ax.set_xticks([1, 10, 20, 30, 40, 50])\n",
+        "sns.scatterplot(HospAcumuladas)\n",
+        "fig.suptitle(\"Hospitalizaciones Acumuladas en base al modelo LOWESS\")\n",
+        "plt.show()"
+      ],
+      "id": "42a19dc1",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## B1) Ajuste del modelo acumulado\n",
+        "\n",
+        "Aproximaremos la serie de tiempo mediante una curva logistica\n",
+        "$$\n",
+        "F(t;K,r,t_0) = \\frac{K}{1+e^{-r(t-t_0)}}\n",
+        "$$\n",
+        "en donde $t$ es un punto en el tiempo, $K$ es la capacidad máxima, $r$ la tasa de crecimiento, y $t_0$ el punto de inflexión.\n",
+        "\n",
+        "Nuestro objetivo es aproximar aquellos valores de $K,\\ r$ y $t_0$ que minimicen el error cuadratico entre las predicciones y los datos observados. Para ello emplearemos la función `least_squares` de la libreria `scipy.optimize`.\n",
+        "\n",
+        "Representaremos los paramentros como un arreglo $\\theta$ en donde\n",
+        "\n",
+        "- $\\theta(0) = K$\n",
+        "- $\\theta(1) = r$\n",
+        "- $\\theta(2) = t_0$\n",
+        "\n",
+        "La función trabaja a partir de un estimado dado de los parametros, en este casos  utilzaremos las estimaciones\n",
+        "- $K = 7000$ que es un valor moderadamente mayor al total de casos acumulados predichos por LOWESS\n",
+        "- $r = 2$\n",
+        "- $t_0 = 24$ la semana en la que visualmente se tiene el punto de inflexión de los datos.\n"
+      ],
+      "id": "94d09767"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "from scipy.optimize import least_squares\n",
+        "\n",
+        "# Defininimos la función de la curva logistica\n",
+        "def F(theta, t):\n",
+        "    return theta[0] / (1 + np.exp(- theta[1] * (t - theta[2])))\n",
+        "\n",
+        "# Declaramos los puntos de la serie de tiempo, la semanas relativas en en este caso\n",
+        "ts = np.array(HospAcumuladas.index)\n",
+        "ys = np.array(HospAcumuladas[\"HOSP_ACUMULADAS\"])\n",
+        "\n",
+        "# Definimos nuestra función de costo o de valores residuales\n",
+        "def residuales(theta):\n",
+        "    return F(theta, ts) - ys\n",
+        "\n",
+        "theta = [7000, 2, 24]\n",
+        "res = least_squares(residuales, theta)\n",
+        "\n",
+        "# Imprimimos los parametros obtenidos\n",
+        "print(\"Los parametros obtenidos son:\")\n",
+        "print(f\"K = {res.x[0]}\")\n",
+        "print(f\"r = {res.x[1]}\")\n",
+        "print(f\"t_0 = {res.x[2]}\")"
+      ],
+      "id": "669e7d33",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Redondearemos los parametros de manera que \n",
+        " - $K = 6872$\n",
+        " - $r = 0.17$\n",
+        " - $t_0 = 24.61$ "
+      ],
+      "id": "c09c202d"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fig, ax = plt.subplots(figsize = (10,6))\n",
+        "\n",
+        "K = 6872\n",
+        "r = 0.17\n",
+        "t0 = 24.61\n",
+        "theta = [K, r, t0]\n",
+        "\n",
+        "# Calculamos los valores predichos por la curva logística obtenida\n",
+        "Y = [F(theta, t) for t in ts]\n",
+        "ax.plot(ts, Y, '-', color='orange', label=\"modelo logístico F(t)\")\n",
+        "ax.plot(ts, ys, 'k.', label=\"observaciones\")\n",
+        "\n",
+        "ax.set_xticks([1, 10, 20, 30, 40, 50])\n",
+        "ax.set_xlabel(\"Semana Relativa\", size=15)\n",
+        "ax.tick_params(axis='both', which='major', labelsize=12)\n",
+        "ax.set_title(\"Modelo acumulado del número de hospitalizaciones mediante un función logística mediante una función logística\", size=15)\n",
+        "ax.legend(prop={'size': 13})\n",
+        "plt.legend()\n",
+        "plt.show()"
+      ],
+      "id": "accb2cd3",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Tenemos segun lo anterior que la curva logística esta dada por\n",
+        "$$\n",
+        "F(t) = \\frac{6872}{1+e^{-0.17(t-24.61)}}\n",
+        "$$\n",
+        "\n",
+        "Graficaremos ahora los valores residuales"
+      ],
+      "id": "3662faf9"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fig, ax = plt.subplots(figsize = (10,6))\n",
+        "\n",
+        "ax.hlines(0, 1, 52, linestyles='dashed', color='black')\n",
+        "ax.plot(ts, residuales(theta), 'o', color='orange', label=\"residuales\")\n",
+        "\n",
+        "ax.set_xticks([1, 10, 20, 30, 40, 50])\n",
+        "ax.set_xlabel(\"Semana Relativa\", size=15)\n",
+        "ax.tick_params(axis='both', which='major', labelsize=12)\n",
+        "ax.set_title(\"Valores residuales del modelo logístico\", size=15)\n",
+        "ax.legend(prop={'size': 13})\n",
+        "plt.legend()\n",
+        "plt.show()"
+      ],
+      "id": "87e28a18",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "## B2) Algoritmo de detección temprana del pico epidémico\n",
+        "\n",
+        "Recordemos que\n",
+        "\n",
+        " - $K = 6872$\n",
+        " - $r = 0.17$\n",
+        " - $t_0 = 24.61$ \n",
+        "\n",
+        "### i) Estimación de $f'(t)=F'(t)$\n",
+        "\n",
+        "Derivando directamente llegamos a que\n",
+        "$$\n",
+        "f(t)=F'(t) = rK\\frac{e^{-r(t-to)}}{(1+e^{-r(t-to)})^2}\n",
+        "$$\n",
+        "\n",
+        "Haciendo \n",
+        "$$\n",
+        "p = \\frac{K}{1+e^{-r(t-t_0)}}\n",
+        "$$\n",
+        "tenemos que\n",
+        "$$\n",
+        "e^{-r(t-t_0)}=\\frac{K}{p}-1\n",
+        "$$\n",
+        "luego\n",
+        "$$\n",
+        "-r(t-t_0)=\\ln{\\left(\\frac{K}{p}-1\\right)}\n",
+        "$$\n",
+        "finalmente\n",
+        "$$\n",
+        "Q(p)=F^{-1}(p)=-\\frac{1}{r}\\ln{\\left(\\frac{K}{p}-1\\right)}+t_0=t\n",
+        "$$\n",
+        "\n",
+        "Implementando estas funciones a codigo se tiene que"
+      ],
+      "id": "d0bf4fc9"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "def f(theta, t):\n",
+        "    exponent = - theta[1] * (t - theta[2])\n",
+        "    exp_val = np.exp(exponent)\n",
+        "    resultado = theta[1] * theta[0] * (exp_val / (1 + exp_val)**2)\n",
+        "    return resultado\n",
+        "\n",
+        "def Q(theta, p):\n",
+        "    return (-1 / theta[1]) * np.log((theta[0] / p) - 1) + theta[2]\n"
+      ],
+      "id": "c13fdecc",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "F(theta,1)"
+      ],
+      "id": "3ecfedd0",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "ys[0]"
+      ],
+      "id": "cf43584f",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Podemos entonces definir \n",
+        "$$\n",
+        "Q(p)=F^{-1}(p) \\quad p\\in[122, K)\n",
+        "$$\n",
+        "el intervalo empieza en 121 ya que es el redondeado del número de casos predicho por el modelo logístico durante la primera semana."
+      ],
+      "id": "c3946a57"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fig, ax = plt.subplots(figsize = (10,6))\n",
+        "\n",
+        "P = np.arange(122, K, 1)\n",
+        "Y = [Q(theta, p) for p in P]\n",
+        "ax.plot(P, Y, '-', color='orange', label=\"Semana Relativa\")\n",
+        "\n",
+        "ax.set_xticks([122, 1000, 2000, 3000, 4000, 5000, 6000, 7000])\n",
+        "ax.set_xlabel(\"Casos Acumulados\", size=15)\n",
+        "ax.tick_params(axis='both', which='major', labelsize=12)\n",
+        "ax.set_title(\"Inversa del modelo logístico para hospitalizaciones acumuladas\", size=15)\n",
+        "ax.legend(prop={'size': 13})\n",
+        "plt.legend()\n",
+        "plt.show()"
+      ],
+      "id": "2542874d",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "### ii) $Q'(p)$ y $Q''(p)$ sobre una malla de valores de p\n",
+        "\n",
+        "A partir de los resultados anteriores podemos definir explícitamente quien es $Q'(p)$, y de manera numérica quien es $Q''(p)$.\n",
+        "\n",
+        "La malla de valores de $p$ la construiremos tomando unicamente valores enteros para $p$, en el intervalo $(122, K]$ será sobre esta misma malla que estimaremos la segunda derivada de $Q$ empleando la función `derivate` de la libreria `scipy.differentiate`, aplicada a la función `dQ(p)` imeplementada en python, correspondiente a $Q'(p)$."
+      ],
+      "id": "d1f44d1c"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "# defincición de dQ(p) = Q'(p)\n",
+        "\n",
+        "def dQ(p):\n",
+        "    return 1 / f(theta, Q(theta, p))"
+      ],
+      "id": "03dfac52",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Mostraremos la gráfica de $Q''(x)$ tomando escala logarítmica en el eje $Y$"
+      ],
+      "id": "bc41b27b"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "from scipy.differentiate import derivative\n",
+        "# definimos la malla de valores para p\n",
+        "\n",
+        "mallaP = np.arange(122, K, 1)\n",
+        "\n",
+        "# Calculamos la segunda derivada de Q sobre mallaP\n",
+        "ddQ = derivative(dQ, mallaP)\n",
+        "\n",
+        "fig, ax = plt.subplots(figsize = (10,6))\n",
+        "\n",
+        "ax.plot(mallaP, ddQ.df, '-', color='orange', label=r\"$Q''(p)$\")\n",
+        "ax.set_ylim(-0.001, 0.001)\n",
+        "ax.set_xticks([122, 1000, 2000, 3000, 4000, 5000, 6000, 7000])\n",
+        "ax.set_xlabel(\"Casos Acumulados\", size=15)\n",
+        "ax.set_title(\"Segunda derivada del modelo logístico para hospitalizaciones acumuladas\", size=15)\n",
+        "ax.tick_params(axis='both', which='major', labelsize=12)\n",
+        "ax.legend(prop={'size': 13})\n",
+        "plt.legend()\n",
+        "plt.show()"
+      ],
+      "id": "ea08991e",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Parar una mejor visualización del punto de inflexión hemos restringido el eje $Y$ al intervalo $[-10^{-3},10^3]$.\n",
+        "\n",
+        "### iii) Primera inflexión del modelo logístico\n",
+        "\n",
+        " Podemos ahora iterar sobre la malla de $p$ e identificar el momento justo antes del punto de inflexión"
+      ],
+      "id": "c7342358"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "p_inflexion = 0\n",
+        "for i in range (len(ddQ.df)):\n",
+        "    if ddQ.df[i+1] > 0 :\n",
+        "        p_inflexion = i + 122\n",
+        "        break\n",
+        "\n",
+        "print(f\"La primera inflexión se da en p = {p_inflexion}\")"
+      ],
+      "id": "4f33546b",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Tenemos entonces que para una cantidad acumulada de hospitalizaciones de $p^\\ast=3436$ se da la primera inflexión.\n",
+        "\n",
+        "### iv) De regreso a la escala temporal\n",
+        "\n",
+        "Aplicando $F^{-1}$, y redondeando al entero más cercano obtenemos que "
+      ],
+      "id": "513bebac"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "t_inflexion = np.round(Q(theta, p_inflexion))\n",
+        "print(f\"pico epidémico t = {t_inflexion}\")"
+      ],
+      "id": "5adee4eb",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "La semana de inicio del pico corresponde a $t^{\\ast}=F^{-1}(p)\\approx 25$.\n",
+        "\n",
+        "#### v) Gráfica del inicio del pico"
+      ],
+      "id": "bcbf3395"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "fig, ax = plt.subplots(nrows=2, figsize = (10,15))\n",
+        "\n",
+        "YdQ = [dQ(p) for p in P]\n",
+        "YddQ = ddQ.df\n",
+        "ax[0].scatter([p_inflexion], [ddQ.df[p_inflexion-121]], [100], marker=\"*\", color='black', label=r\"$p^\\ast$\",zorder=3)\n",
+        "ax[0].plot(mallaP, YdQ, '-', color='blue', alpha=0.6, label=r\"$Q'(x)$\", linewidth=4,zorder=1)\n",
+        "ax[0].plot(mallaP, YddQ, '-', color='orange', alpha=0.6, label=r\"$Q''(x)$\", linewidth=4,zorder=2)\n",
+        "ax[0].set_xticks([122, 1000, 2000, 3000, 4000, 5000, 6000, 7000])\n",
+        "ax[0].set_xlabel(\"Casos Acumulados\", size=15)\n",
+        "ax[0].set_title(\"Primera y segunda derivada de la inversa de la curva epidémica\", size=15)\n",
+        "\n",
+        "Y = [F(theta, t) for t in ts]\n",
+        "ax[1].plot(ts, Y, '-', color='orange', linewidth=4, label=r\"curva epidemica $F(t)$\")\n",
+        "ax[1].scatter([t_inflexion], [F(theta, t_inflexion)], [100], marker=\"*\", color='black', label=r\"$t^\\ast$\",zorder=3)\n",
+        "ax[1].set_xticks([1, 10, 20, 30, 40, 50])\n",
+        "ax[1].set_xlabel(\"Semana Relativa\", size=15)\n",
+        "ax[1].set_ylabel(\"Casos Acumulados\", size=15)\n",
+        "ax[1].set_title(\"Inicio del pico epidémico\", size=15)\n",
+        "\n",
+        "ax[0].tick_params(axis='both', which='major', labelsize=12)\n",
+        "ax[1].tick_params(axis='both', which='major', labelsize=12)\n",
+        "ax[1].legend(prop={'size': 13})\n",
+        "ax[0].legend(prop={'size': 13})\n",
+        "plt.show()"
+      ],
+      "id": "a7abc2e2",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "Se tiene entonces que la semana de inicio del pico epidemico coincide visualmente con los datos. De manera analítica esto coincide con que $t_0$ es precisamente el punto de inflexión del modelo logistico, en este caso, ya conociamos que $t_0\\approx24\\approx25$.\n",
+        "\n",
+        "En conclusión, podemos decir finalmente, que el inico del pico epidémico comienza dura la semana 25.\n"
+      ],
+      "id": "42e9b60c"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "C:\\Users\\Kevin\\AppData\\Roaming\\Python\\share\\jupyter\\kernels\\python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}

@@ -1,0 +1,175 @@
+
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{geometry}
+
+\geometry{margin=2cm}
+
+\begin{document}
+
+\begin{flushleft}
+    \textbf{Kevin Omar Celis Flores} \\
+    Tarea 9, Análisis Numérico
+\end{flushleft}
+
+\section*{Problema 1}
+
+Sea $S(x) = \begin{cases} ax + 1, & 0 \le x < 1 \\ bx^3 + cx^2, & 1 \le x < 2 \end{cases}$
+
+Determinar las constantes $a, b$ y $c$ de manera que $S(x)$ sea un spline cúbico.
+
+\textbf{Tenemos que}
+\[ S'(x) = \begin{cases} a, & 0 \le x < 1 \\ 3bx^2 + 2cx, & 1 \le x < 2 \end{cases} \quad \text{y} \quad S''(x) = \begin{cases} 0, & 0 \le x < 1 \\ 6bx + 2c, & 1 \le x < 2 \end{cases} \]
+
+Para que $S(x)$ sea un spline cúbico, requerimos que $S, S'$ y $S''$ sean continuas en $x=1$, por lo tanto se debe tener:
+\begin{align*}
+    S(1) &= a + 1 = b + c \\
+    S'(1) &= a = 3b + 2c \\
+    S''(1) &= 0 = 6b + 2c
+\end{align*}
+
+Esto nos da el sistema de ecuaciones siguiente:
+\begin{align}
+    a - b - c &= -1 \\
+    a - 3b - 2c &= 0 \\
+    -6b - 2c &= 0
+\end{align}
+
+La ecuación (3) nos da $c = -3b$, de donde (1) y (2) se vuelven $a + 2b = -1$ y $a + 3b = 0$ respectivamente.
+
+Luego, $a = -3b$ y $-3b + 2b = -b = -1$, entonces $b = 1$ y $a = -3b = -3$, $c = -3b = -3$.
+
+$\therefore a = -3, b = 1$ y $c = -3$, vuelven a
+\[ S(x) = \begin{cases} -3x + 1, & 0 \le x < 1 \\ x^3 - 3x^2, & 1 \le x < 2 \end{cases} \quad \text{un spline cúbico.} \]
+
+\newpage
+
+\section*{Problema 2}
+
+a) Determina el spline cúbico natural que pasa por $(-3, 2), (-2, 0), (1, 3), (4, 1)$.
+
+Sea
+\[ S(x) = \begin{cases} S_0(x) = ax^3 + bx^2 + cx + d, & -3 \le x \le -2 \\ S_1(x) = ex^3 + fx^2 + gx + h, & -2 \le x \le 1 \\ S_2(x) = jx^3 + kx^2 + lx + m, & 1 \le x \le 4 \end{cases} \]
+
+entonces
+\[ S'(x) = \begin{cases} S'_0(x) = 3ax^2 + 2bx + c, & -3 \le x \le -2 \\ S'_1(x) = 3ex^2 + 2fx + g, & -2 \le x \le 1 \\ S'_2(x) = 3jx^2 + 2kx + l, & 1 \le x \le 4 \end{cases} \]
+
+\[ S''(x) = \begin{cases} S''_0(x) = 6ax + 2b, & -3 \le x \le -2 \\ S''_1(x) = 6ex + 2f, & -2 \le x \le 1 \\ S''_2(x) = 6jx + 2k, & 1 \le x \le 4 \end{cases} \]
+
+Luego, las condiciones de frontera nos dan
+\begin{align*}
+    S''(-3) &= -18a + 2b = 0 \implies b = 9a \\
+    S''(4) &= 24j + 2k = 0 \implies k = -12j
+\end{align*}
+
+Las condiciones en los puntos interiores son
+\begin{align*}
+    S''(-2) &= -12a + 18a = 6a = -12e + 2f \\
+    S''(1) &= 6e + 2f = 6j - 24j = -18j
+\end{align*}
+
+Esto nos da las ecuaciones:
+\begin{align*}
+    6a + 12e - 2f &= 0 \implies 3a + 6e - f = 0 \implies a = -2e + \frac{1}{3}f \\
+    6e + 2f + 18j &= 0 \implies 3e + f + 9j = 0 \implies j = -\frac{1}{3}e - \frac{1}{9}f
+\end{align*}
+
+\newpage
+
+De las ecuaciones anteriores tenemos:
+\begin{align*}
+    S'_0(x) &= 3ax^2 + 18ax + c \\
+    &= (-6e + f)x^2 + (-36e + 6f)x + c \\
+    S'_2(x) &= 3jx^2 - 24jx + l \\
+    &= (-e - \frac{1}{3}f)x^2 + (8e + \frac{8}{3}f)x + l
+\end{align*}
+
+entonces
+\begin{align*}
+    S'(-2) &= 48e - 3f + c = 12e - 4f + g \\
+    S'(1) &= 3e + 2f + g = 7e + \frac{7}{3}f + l
+\end{align*}
+
+simplificando tenemos
+\begin{align*}
+    36e - f + c - g &= 0 \\
+    -4e - \frac{1}{3}f + g - l &= 0
+\end{align*}
+$\implies$
+\begin{align*}
+    c &= -36e + 4f + g \\
+    l &= -4e - \frac{1}{3}f + g
+\end{align*}
+
+En base a lo anterior
+\begin{align*}
+    S_0(x) &= ax^3 + 9ax^2 + (-36e + 4f + g)x + d \\
+    &= (-2e + \frac{1}{3}f)x^3 + (-18e + 3f)x^2 + (-36e + 4f + g)x + d \\
+    S_2(x) &= jx^3 - 12jx^2 + (-4e - \frac{1}{3}f + g)x + m \\
+    &= (-\frac{1}{3}e - \frac{1}{9}f)x^3 + (4e + \frac{4}{3}f)x^2 + (-4e - \frac{1}{3}f + g)x + m
+\end{align*}
+
+entonces
+\begin{align*}
+    S(-2) &= d + 16e + \frac{4}{3}f - 2g = -8e + 4f - 2g + h \\
+    S(1) &= e + f + g + h = -\frac{1}{3}e + \frac{8}{9}f + g + m
+\end{align*}
+
+\newpage
+
+\[ 13e - \frac{11}{3}f = -3 \]
+\[ 18e + 15f = -5 \]
+
+Resolviendo este sistema mediante Cramer se tiene que:
+\[ \Delta = \begin{vmatrix} 13 & -11/3 \\ 18 & 15 \end{vmatrix} = 261, \quad e = \frac{\Delta_e}{\Delta} = -\frac{190}{783} \]
+\[ \Delta_e = \begin{vmatrix} -3 & -11/3 \\ -5 & 15 \end{vmatrix} = -\frac{190}{3}, \quad f = \frac{\Delta_f}{\Delta} = -\frac{11}{261} \]
+\[ \Delta_f = \begin{vmatrix} 13 & -3 \\ 18 & -5 \end{vmatrix} = -11 \]
+
+Regresando sobre nuestros pasos tenemos:
+\begin{align*}
+    e &= -\frac{190}{783}, \quad f = -\frac{11}{261}, \quad g = \frac{440}{261}, \quad h = \frac{1252}{783} \\
+    d &= \frac{212}{29}, \quad m = \frac{995}{783}, \quad c = \frac{892}{87}, \quad l = \frac{697}{261} \\
+    a &= \frac{41}{871}, \quad j = \frac{67}{783}, \quad b = \frac{123}{29}, \quad k = -\frac{268}{261}
+\end{align*}
+
+Por lo tanto el spline cúbico natural que interpola los 4 nodos es:
+
+\[ S(x) = \begin{cases} S_0(x) = \frac{41}{37}x^3 + \frac{123}{29}x^2 + \frac{892}{87}x + \frac{212}{29}, & -3 \le x \le -2 \\ S_1(x) = -\frac{190}{783}x^3 - \frac{11}{261}x^2 + \frac{440}{261}x + \frac{1252}{783}, & -2 \le x \le 1 \\ S_2(x) = \frac{67}{783}x^3 - \frac{268}{261}x^2 + \frac{697}{261}x + \frac{995}{783}, & 1 \le x \le 4 \end{cases} \]
+
+b) Estima los valores $S(0)$ y $S(2)$
+
+Tenemos que
+\[ S(0) = S_1(0) = \frac{1252}{783} \quad \text{y} \quad S(2) = S_2(2) = \frac{2497}{783} \]
+
+Presentamos ahora una gráfica del spline junto con las estimaciones $S(0)$ y $S(2)$ hecha en wolfram mathematica.
+
+\includegraphics[width=0.5\textwidth]{\newton.png}
+
+
+\newpage
+
+c) Calculando el polinomio de Newton por diferencias divididas tenemos:
+\[ x_0 = -3, \quad x_1 = -2, \quad x_2 = 1, \quad x_3 = 4 \]
+\[ f[x_0] = 2, \quad f[x_1] = 0, \quad f[x_2] = 3, \quad f[x_3] = 1 \]
+
+\begin{align*}
+    f[x_0, x_1] &= \frac{0 - 2}{-2 - (-3)} = -2, \quad f[x_1, x_2] = \frac{3 - 0}{1 - (-2)} = 1, \quad f[x_2, x_3] = \frac{1 - 3}{4 - 1} = -\frac{2}{3} \\
+    f[x_0, x_1, x_2] &= \frac{1 - (-2)}{1 - (-3)} = \frac{3}{4}, \quad f[x_1, x_2, x_3] = \frac{-2/3 - 1}{4 - (-2)} = -\frac{5}{18} \\
+    f[x_0, x_1, x_2, x_3] &= \frac{-5/18 - 3/4}{4 - (-3)} = -\frac{37}{252}
+\end{align*}
+
+Por lo tanto el polinomio de interpolación de Newton es:
+\[ f(x) = 2 - 2(x+3) + \frac{3}{4}(x+3)(x+2) - \frac{37}{252}(x+3)(x+2)(x-1) \]
+
+El cual da las correspondientes aproximaciones:
+\[ f(0) = \frac{29}{21} \quad \text{y} \quad f(2) = \frac{256}{261} \]
+
+Comparando las gráficas del spline cúbico natural contra el polinomio interpolador de Newton, vemos que este último da saltos más bruscos, en particular en el intervalo $[1, 4]$, en comparación con el spline cúbico donde la variación es más controlada, por lo que el spline parece ser el método más adecuado para estos datos.
+
+
+
+\end{document}

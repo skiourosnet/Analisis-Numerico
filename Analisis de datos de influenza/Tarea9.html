@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.8.27">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Análisis de datos de influenza</title>
+<title>Hospitalizaciones y defunciones semanales</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -58,18 +58,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="Análisis de datos de Influenza_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Análisis de datos de Influenza_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="Análisis de datos de Influenza_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="Análisis de datos de Influenza_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="Análisis de datos de Influenza_files/libs/quarto-html/popper.min.js"></script>
-<script src="Análisis de datos de Influenza_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="Análisis de datos de Influenza_files/libs/quarto-html/anchor.min.js"></script>
-<link href="Análisis de datos de Influenza_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Análisis de datos de Influenza_files/libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="Análisis de datos de Influenza_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="Análisis de datos de Influenza_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="Análisis de datos de Influenza_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="Tarea9_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Tarea9_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="Tarea9_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="Tarea9_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="Tarea9_files/libs/quarto-html/popper.min.js"></script>
+<script src="Tarea9_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Tarea9_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Tarea9_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Tarea9_files/libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Tarea9_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Tarea9_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Tarea9_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -114,7 +114,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Análisis de datos de influenza</h1>
+<h1 class="title">Hospitalizaciones y defunciones semanales</h1>
 </div>
 
 
@@ -131,11 +131,9 @@ window.Quarto = {
 </header>
 
 
-<section id="hospitalizaciones-y-defunciones-semnales" class="level1">
-<h1>Hospitalizaciones y defunciones semnales</h1>
 <section id="filtrado-de-los-datos" class="level2">
 <h2 class="anchored" data-anchor-id="filtrado-de-los-datos">Filtrado de los datos</h2>
-<div id="2c47650c" class="cell" data-execution_count="1">
+<div id="2c47650c" class="cell" data-execution_count="30">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importamos las librerias necesarias</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd </span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -143,7 +141,7 @@ window.Quarto = {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'text.usetex'</span>] <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> statsmodels.nonparametric.smoothers_lowess <span class="im">import</span> lowess</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.interpolate <span class="im">import</span> PchipInterpolator</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.interpolate <span class="im">import</span> PchipInterpolator</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Simbología</p>
 <ul>
@@ -151,83 +149,83 @@ window.Quarto = {
 <li>CASOS_HOSP = casos hospitalizaciones</li>
 <li>CASOS_DEF = casos defunciones</li>
 </ul>
-<div id="015a68c2" class="cell" data-execution_count="2">
+<div id="015a68c2" class="cell" data-execution_count="31">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"influenza_glm_ready.csv"</span>) <span class="co"># Importamos el dataset</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>influenza <span class="op">=</span> df[[<span class="st">'SEMANA_RELATIVA'</span>, <span class="st">"CASOS_SINT"</span>, <span class="st">"CASOS_HOSP"</span>, <span class="st">"CASOS_DEF"</span>, </span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">'FLAG_SINT'</span>, <span class="st">'FLAG_HOSP'</span>,<span class="st">'FLAG_DEF'</span>]] <span class="co"># Filtramos los datos de nuestro interés.</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>influenza.head().style.set_properties(<span class="op">**</span>{<span class="st">'text-align'</span>: <span class="st">'center'</span>}</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                ).hide(axis<span class="op">=</span><span class="st">'index'</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                ).set_caption(<span class="st">"Resumen de los datos de Influenza"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                ).set_caption(<span class="st">"Resumen de los datos de Influenza"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
 <style type="text/css">
-#T_3b64c_row0_col0, #T_3b64c_row0_col1, #T_3b64c_row0_col2, #T_3b64c_row0_col3, #T_3b64c_row0_col4, #T_3b64c_row0_col5, #T_3b64c_row0_col6, #T_3b64c_row1_col0, #T_3b64c_row1_col1, #T_3b64c_row1_col2, #T_3b64c_row1_col3, #T_3b64c_row1_col4, #T_3b64c_row1_col5, #T_3b64c_row1_col6, #T_3b64c_row2_col0, #T_3b64c_row2_col1, #T_3b64c_row2_col2, #T_3b64c_row2_col3, #T_3b64c_row2_col4, #T_3b64c_row2_col5, #T_3b64c_row2_col6, #T_3b64c_row3_col0, #T_3b64c_row3_col1, #T_3b64c_row3_col2, #T_3b64c_row3_col3, #T_3b64c_row3_col4, #T_3b64c_row3_col5, #T_3b64c_row3_col6, #T_3b64c_row4_col0, #T_3b64c_row4_col1, #T_3b64c_row4_col2, #T_3b64c_row4_col3, #T_3b64c_row4_col4, #T_3b64c_row4_col5, #T_3b64c_row4_col6 {
+#T_c4d73_row0_col0, #T_c4d73_row0_col1, #T_c4d73_row0_col2, #T_c4d73_row0_col3, #T_c4d73_row0_col4, #T_c4d73_row0_col5, #T_c4d73_row0_col6, #T_c4d73_row1_col0, #T_c4d73_row1_col1, #T_c4d73_row1_col2, #T_c4d73_row1_col3, #T_c4d73_row1_col4, #T_c4d73_row1_col5, #T_c4d73_row1_col6, #T_c4d73_row2_col0, #T_c4d73_row2_col1, #T_c4d73_row2_col2, #T_c4d73_row2_col3, #T_c4d73_row2_col4, #T_c4d73_row2_col5, #T_c4d73_row2_col6, #T_c4d73_row3_col0, #T_c4d73_row3_col1, #T_c4d73_row3_col2, #T_c4d73_row3_col3, #T_c4d73_row3_col4, #T_c4d73_row3_col5, #T_c4d73_row3_col6, #T_c4d73_row4_col0, #T_c4d73_row4_col1, #T_c4d73_row4_col2, #T_c4d73_row4_col3, #T_c4d73_row4_col4, #T_c4d73_row4_col5, #T_c4d73_row4_col6 {
   text-align: center;
 }
 </style>
 
-<div id="T_3b64c" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
+<div id="T_c4d73" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_3b64c-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabla&nbsp;1: Resumen de los datos de Influenza
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_c4d73-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Resumen de los datos de Influenza
 </figcaption>
-<div aria-describedby="T_3b64c-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_3b64c" class="caption-top table table-sm table-striped small">
+<div aria-describedby="T_c4d73-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="T_c4d73" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th id="T_3b64c_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">SEMANA_RELATIVA</th>
-<th id="T_3b64c_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">CASOS_SINT</th>
-<th id="T_3b64c_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">CASOS_HOSP</th>
-<th id="T_3b64c_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">CASOS_DEF</th>
-<th id="T_3b64c_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">FLAG_SINT</th>
-<th id="T_3b64c_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">FLAG_HOSP</th>
-<th id="T_3b64c_level0_col6" class="col_heading level0 col6" data-quarto-table-cell-role="th">FLAG_DEF</th>
+<th id="T_c4d73_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">SEMANA_RELATIVA</th>
+<th id="T_c4d73_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">CASOS_SINT</th>
+<th id="T_c4d73_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">CASOS_HOSP</th>
+<th id="T_c4d73_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">CASOS_DEF</th>
+<th id="T_c4d73_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">FLAG_SINT</th>
+<th id="T_c4d73_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">FLAG_HOSP</th>
+<th id="T_c4d73_level0_col6" class="col_heading level0 col6" data-quarto-table-cell-role="th">FLAG_DEF</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_3b64c_row0_col0" class="data row0 col0">1</td>
-<td id="T_3b64c_row0_col1" class="data row0 col1">134</td>
-<td id="T_3b64c_row0_col2" class="data row0 col2">40</td>
-<td id="T_3b64c_row0_col3" class="data row0 col3">5</td>
-<td id="T_3b64c_row0_col4" class="data row0 col4">observado</td>
-<td id="T_3b64c_row0_col5" class="data row0 col5">observado</td>
-<td id="T_3b64c_row0_col6" class="data row0 col6">observado</td>
+<td id="T_c4d73_row0_col0" class="data row0 col0">1</td>
+<td id="T_c4d73_row0_col1" class="data row0 col1">134</td>
+<td id="T_c4d73_row0_col2" class="data row0 col2">40</td>
+<td id="T_c4d73_row0_col3" class="data row0 col3">5</td>
+<td id="T_c4d73_row0_col4" class="data row0 col4">observado</td>
+<td id="T_c4d73_row0_col5" class="data row0 col5">observado</td>
+<td id="T_c4d73_row0_col6" class="data row0 col6">observado</td>
 </tr>
 <tr class="even">
-<td id="T_3b64c_row1_col0" class="data row1 col0">2</td>
-<td id="T_3b64c_row1_col1" class="data row1 col1">145</td>
-<td id="T_3b64c_row1_col2" class="data row1 col2">62</td>
-<td id="T_3b64c_row1_col3" class="data row1 col3">8</td>
-<td id="T_3b64c_row1_col4" class="data row1 col4">observado</td>
-<td id="T_3b64c_row1_col5" class="data row1 col5">observado</td>
-<td id="T_3b64c_row1_col6" class="data row1 col6">observado</td>
+<td id="T_c4d73_row1_col0" class="data row1 col0">2</td>
+<td id="T_c4d73_row1_col1" class="data row1 col1">145</td>
+<td id="T_c4d73_row1_col2" class="data row1 col2">62</td>
+<td id="T_c4d73_row1_col3" class="data row1 col3">8</td>
+<td id="T_c4d73_row1_col4" class="data row1 col4">observado</td>
+<td id="T_c4d73_row1_col5" class="data row1 col5">observado</td>
+<td id="T_c4d73_row1_col6" class="data row1 col6">observado</td>
 </tr>
 <tr class="odd">
-<td id="T_3b64c_row2_col0" class="data row2 col0">3</td>
-<td id="T_3b64c_row2_col1" class="data row2 col1">162</td>
-<td id="T_3b64c_row2_col2" class="data row2 col2">71</td>
-<td id="T_3b64c_row2_col3" class="data row2 col3">9</td>
-<td id="T_3b64c_row2_col4" class="data row2 col4">observado</td>
-<td id="T_3b64c_row2_col5" class="data row2 col5">observado</td>
-<td id="T_3b64c_row2_col6" class="data row2 col6">observado</td>
+<td id="T_c4d73_row2_col0" class="data row2 col0">3</td>
+<td id="T_c4d73_row2_col1" class="data row2 col1">162</td>
+<td id="T_c4d73_row2_col2" class="data row2 col2">71</td>
+<td id="T_c4d73_row2_col3" class="data row2 col3">9</td>
+<td id="T_c4d73_row2_col4" class="data row2 col4">observado</td>
+<td id="T_c4d73_row2_col5" class="data row2 col5">observado</td>
+<td id="T_c4d73_row2_col6" class="data row2 col6">observado</td>
 </tr>
 <tr class="even">
-<td id="T_3b64c_row3_col0" class="data row3 col0">4</td>
-<td id="T_3b64c_row3_col1" class="data row3 col1">125</td>
-<td id="T_3b64c_row3_col2" class="data row3 col2">58</td>
-<td id="T_3b64c_row3_col3" class="data row3 col3">8</td>
-<td id="T_3b64c_row3_col4" class="data row3 col4">observado</td>
-<td id="T_3b64c_row3_col5" class="data row3 col5">observado</td>
-<td id="T_3b64c_row3_col6" class="data row3 col6">observado</td>
+<td id="T_c4d73_row3_col0" class="data row3 col0">4</td>
+<td id="T_c4d73_row3_col1" class="data row3 col1">125</td>
+<td id="T_c4d73_row3_col2" class="data row3 col2">58</td>
+<td id="T_c4d73_row3_col3" class="data row3 col3">8</td>
+<td id="T_c4d73_row3_col4" class="data row3 col4">observado</td>
+<td id="T_c4d73_row3_col5" class="data row3 col5">observado</td>
+<td id="T_c4d73_row3_col6" class="data row3 col6">observado</td>
 </tr>
 <tr class="odd">
-<td id="T_3b64c_row4_col0" class="data row4 col0">5</td>
-<td id="T_3b64c_row4_col1" class="data row4 col1">102</td>
-<td id="T_3b64c_row4_col2" class="data row4 col2">49</td>
-<td id="T_3b64c_row4_col3" class="data row4 col3">3</td>
-<td id="T_3b64c_row4_col4" class="data row4 col4">observado</td>
-<td id="T_3b64c_row4_col5" class="data row4 col5">observado</td>
-<td id="T_3b64c_row4_col6" class="data row4 col6">observado</td>
+<td id="T_c4d73_row4_col0" class="data row4 col0">5</td>
+<td id="T_c4d73_row4_col1" class="data row4 col1">102</td>
+<td id="T_c4d73_row4_col2" class="data row4 col2">49</td>
+<td id="T_c4d73_row4_col3" class="data row4 col3">3</td>
+<td id="T_c4d73_row4_col4" class="data row4 col4">observado</td>
+<td id="T_c4d73_row4_col5" class="data row4 col5">observado</td>
+<td id="T_c4d73_row4_col6" class="data row4 col6">observado</td>
 </tr>
 </tbody>
 </table>
@@ -239,7 +237,7 @@ Tabla&nbsp;1: Resumen de los datos de Influenza
 </section>
 <section id="inspección-de-los-datos" class="level2">
 <h2 class="anchored" data-anchor-id="inspección-de-los-datos">Inspección de los datos</h2>
-<div id="cd4cbc46" class="cell" data-execution_count="123">
+<div id="cd4cbc46" class="cell" data-execution_count="32">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>plt.rcParams[<span class="st">'figure.dpi'</span>] <span class="op">=</span> <span class="dv">300</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">3</span>, figsize <span class="op">=</span> (<span class="dv">10</span>,<span class="dv">7</span>))</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#3f64a1'</span>, <span class="st">'#f5425a'</span>]</span>
@@ -272,11 +270,11 @@ Tabla&nbsp;1: Resumen de los datos de Influenza
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">"Casos por semana"</span>)</span>
 <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#fig.text(1,1,"HOla")</span></span>
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Análisis%20de%20datos%20de%20Influenza_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="Tarea9_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -286,7 +284,7 @@ Tabla&nbsp;1: Resumen de los datos de Influenza
 <h2 class="anchored" data-anchor-id="a-preprocesamiento">a) Preprocesamiento</h2>
 <section id="semanas-con-datos-faltantes-o-no-reportados" class="level3">
 <h3 class="anchored" data-anchor-id="semanas-con-datos-faltantes-o-no-reportados">Semanas con datos faltantes o no reportados</h3>
-<div id="b1a3f864" class="cell" data-execution_count="4">
+<div id="b1a3f864" class="cell" data-execution_count="33">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtramos aquellas semanas para las cuales una de las "FLAGS" aparece como no_reportado</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>NoReportes <span class="op">=</span> influenza[(influenza[<span class="st">"FLAG_SINT"</span>] <span class="op">==</span> <span class="st">"sin_reporte"</span>) <span class="op">|</span> </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                       (influenza[<span class="st">"FLAG_HOSP"</span>] <span class="op">==</span> <span class="st">"sin_reporte"</span>) <span class="op">|</span></span>
@@ -313,90 +311,90 @@ Tabla&nbsp;1: Resumen de los datos de Influenza
 <span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        ])</span>
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>    ])</span>
 <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>estilo_tabla</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>estilo_tabla</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
 <style type="text/css">
-#T_65eac th {
+#T_6076e th {
   text-align: center;
   background-color: #f2f2f2;
 }
-#T_65eac caption {
+#T_6076e caption {
   font-size: 15px;
   padding: 10px;
 }
-#T_65eac_row0_col0, #T_65eac_row0_col1, #T_65eac_row0_col2, #T_65eac_row0_col3, #T_65eac_row0_col4, #T_65eac_row0_col5, #T_65eac_row1_col0, #T_65eac_row1_col1, #T_65eac_row1_col2, #T_65eac_row1_col3, #T_65eac_row2_col0, #T_65eac_row2_col1, #T_65eac_row2_col2, #T_65eac_row2_col3, #T_65eac_row3_col0, #T_65eac_row3_col1, #T_65eac_row3_col2, #T_65eac_row3_col3, #T_65eac_row4_col0, #T_65eac_row4_col1, #T_65eac_row4_col2, #T_65eac_row4_col3 {
+#T_6076e_row0_col0, #T_6076e_row0_col1, #T_6076e_row0_col2, #T_6076e_row0_col3, #T_6076e_row0_col4, #T_6076e_row0_col5, #T_6076e_row1_col0, #T_6076e_row1_col1, #T_6076e_row1_col2, #T_6076e_row1_col3, #T_6076e_row2_col0, #T_6076e_row2_col1, #T_6076e_row2_col2, #T_6076e_row2_col3, #T_6076e_row3_col0, #T_6076e_row3_col1, #T_6076e_row3_col2, #T_6076e_row3_col3, #T_6076e_row4_col0, #T_6076e_row4_col1, #T_6076e_row4_col2, #T_6076e_row4_col3 {
   background-color: ;
   text-align: center;
 }
-#T_65eac_row0_col6, #T_65eac_row1_col4, #T_65eac_row1_col5, #T_65eac_row1_col6, #T_65eac_row2_col4, #T_65eac_row2_col5, #T_65eac_row2_col6, #T_65eac_row3_col4, #T_65eac_row3_col5, #T_65eac_row3_col6, #T_65eac_row4_col4, #T_65eac_row4_col5, #T_65eac_row4_col6 {
+#T_6076e_row0_col6, #T_6076e_row1_col4, #T_6076e_row1_col5, #T_6076e_row1_col6, #T_6076e_row2_col4, #T_6076e_row2_col5, #T_6076e_row2_col6, #T_6076e_row3_col4, #T_6076e_row3_col5, #T_6076e_row3_col6, #T_6076e_row4_col4, #T_6076e_row4_col5, #T_6076e_row4_col6 {
   background-color: cyan;
   text-align: center;
 }
 </style>
 
-<div id="T_65eac" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
+<div id="T_6076e" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_65eac-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabla&nbsp;2: Semanas con al menos uno de los casos etiquetados como sin_reporte
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_6076e-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;2: Semanas con al menos uno de los casos etiquetados como sin_reporte
 </figcaption>
-<div aria-describedby="T_65eac-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_65eac" class="caption-top table table-sm table-striped small">
+<div aria-describedby="T_6076e-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="T_6076e" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
-<th id="T_65eac_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">SEMANA_RELATIVA</th>
-<th id="T_65eac_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">CASOS_SINT</th>
-<th id="T_65eac_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">CASOS_HOSP</th>
-<th id="T_65eac_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">CASOS_DEF</th>
-<th id="T_65eac_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">FLAG_SINT</th>
-<th id="T_65eac_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">FLAG_HOSP</th>
-<th id="T_65eac_level0_col6" class="col_heading level0 col6" data-quarto-table-cell-role="th">FLAG_DEF</th>
+<th id="T_6076e_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">SEMANA_RELATIVA</th>
+<th id="T_6076e_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">CASOS_SINT</th>
+<th id="T_6076e_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">CASOS_HOSP</th>
+<th id="T_6076e_level0_col3" class="col_heading level0 col3" data-quarto-table-cell-role="th">CASOS_DEF</th>
+<th id="T_6076e_level0_col4" class="col_heading level0 col4" data-quarto-table-cell-role="th">FLAG_SINT</th>
+<th id="T_6076e_level0_col5" class="col_heading level0 col5" data-quarto-table-cell-role="th">FLAG_HOSP</th>
+<th id="T_6076e_level0_col6" class="col_heading level0 col6" data-quarto-table-cell-role="th">FLAG_DEF</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td id="T_65eac_row0_col0" class="data row0 col0">8</td>
-<td id="T_65eac_row0_col1" class="data row0 col1">62</td>
-<td id="T_65eac_row0_col2" class="data row0 col2">26</td>
-<td id="T_65eac_row0_col3" class="data row0 col3">0</td>
-<td id="T_65eac_row0_col4" class="data row0 col4">observado</td>
-<td id="T_65eac_row0_col5" class="data row0 col5">observado</td>
-<td id="T_65eac_row0_col6" class="data row0 col6">sin_reporte</td>
+<td id="T_6076e_row0_col0" class="data row0 col0">8</td>
+<td id="T_6076e_row0_col1" class="data row0 col1">62</td>
+<td id="T_6076e_row0_col2" class="data row0 col2">26</td>
+<td id="T_6076e_row0_col3" class="data row0 col3">0</td>
+<td id="T_6076e_row0_col4" class="data row0 col4">observado</td>
+<td id="T_6076e_row0_col5" class="data row0 col5">observado</td>
+<td id="T_6076e_row0_col6" class="data row0 col6">sin_reporte</td>
 </tr>
 <tr class="even">
-<td id="T_65eac_row1_col0" class="data row1 col0">14</td>
-<td id="T_65eac_row1_col1" class="data row1 col1">0</td>
-<td id="T_65eac_row1_col2" class="data row1 col2">0</td>
-<td id="T_65eac_row1_col3" class="data row1 col3">0</td>
-<td id="T_65eac_row1_col4" class="data row1 col4">sin_reporte</td>
-<td id="T_65eac_row1_col5" class="data row1 col5">sin_reporte</td>
-<td id="T_65eac_row1_col6" class="data row1 col6">sin_reporte</td>
+<td id="T_6076e_row1_col0" class="data row1 col0">14</td>
+<td id="T_6076e_row1_col1" class="data row1 col1">0</td>
+<td id="T_6076e_row1_col2" class="data row1 col2">0</td>
+<td id="T_6076e_row1_col3" class="data row1 col3">0</td>
+<td id="T_6076e_row1_col4" class="data row1 col4">sin_reporte</td>
+<td id="T_6076e_row1_col5" class="data row1 col5">sin_reporte</td>
+<td id="T_6076e_row1_col6" class="data row1 col6">sin_reporte</td>
 </tr>
 <tr class="odd">
-<td id="T_65eac_row2_col0" class="data row2 col0">15</td>
-<td id="T_65eac_row2_col1" class="data row2 col1">0</td>
-<td id="T_65eac_row2_col2" class="data row2 col2">0</td>
-<td id="T_65eac_row2_col3" class="data row2 col3">0</td>
-<td id="T_65eac_row2_col4" class="data row2 col4">sin_reporte</td>
-<td id="T_65eac_row2_col5" class="data row2 col5">sin_reporte</td>
-<td id="T_65eac_row2_col6" class="data row2 col6">sin_reporte</td>
+<td id="T_6076e_row2_col0" class="data row2 col0">15</td>
+<td id="T_6076e_row2_col1" class="data row2 col1">0</td>
+<td id="T_6076e_row2_col2" class="data row2 col2">0</td>
+<td id="T_6076e_row2_col3" class="data row2 col3">0</td>
+<td id="T_6076e_row2_col4" class="data row2 col4">sin_reporte</td>
+<td id="T_6076e_row2_col5" class="data row2 col5">sin_reporte</td>
+<td id="T_6076e_row2_col6" class="data row2 col6">sin_reporte</td>
 </tr>
 <tr class="even">
-<td id="T_65eac_row3_col0" class="data row3 col0">16</td>
-<td id="T_65eac_row3_col1" class="data row3 col1">0</td>
-<td id="T_65eac_row3_col2" class="data row3 col2">0</td>
-<td id="T_65eac_row3_col3" class="data row3 col3">0</td>
-<td id="T_65eac_row3_col4" class="data row3 col4">sin_reporte</td>
-<td id="T_65eac_row3_col5" class="data row3 col5">sin_reporte</td>
-<td id="T_65eac_row3_col6" class="data row3 col6">sin_reporte</td>
+<td id="T_6076e_row3_col0" class="data row3 col0">16</td>
+<td id="T_6076e_row3_col1" class="data row3 col1">0</td>
+<td id="T_6076e_row3_col2" class="data row3 col2">0</td>
+<td id="T_6076e_row3_col3" class="data row3 col3">0</td>
+<td id="T_6076e_row3_col4" class="data row3 col4">sin_reporte</td>
+<td id="T_6076e_row3_col5" class="data row3 col5">sin_reporte</td>
+<td id="T_6076e_row3_col6" class="data row3 col6">sin_reporte</td>
 </tr>
 <tr class="odd">
-<td id="T_65eac_row4_col0" class="data row4 col0">17</td>
-<td id="T_65eac_row4_col1" class="data row4 col1">0</td>
-<td id="T_65eac_row4_col2" class="data row4 col2">0</td>
-<td id="T_65eac_row4_col3" class="data row4 col3">0</td>
-<td id="T_65eac_row4_col4" class="data row4 col4">sin_reporte</td>
-<td id="T_65eac_row4_col5" class="data row4 col5">sin_reporte</td>
-<td id="T_65eac_row4_col6" class="data row4 col6">sin_reporte</td>
+<td id="T_6076e_row4_col0" class="data row4 col0">17</td>
+<td id="T_6076e_row4_col1" class="data row4 col1">0</td>
+<td id="T_6076e_row4_col2" class="data row4 col2">0</td>
+<td id="T_6076e_row4_col3" class="data row4 col3">0</td>
+<td id="T_6076e_row4_col4" class="data row4 col4">sin_reporte</td>
+<td id="T_6076e_row4_col5" class="data row4 col5">sin_reporte</td>
+<td id="T_6076e_row4_col6" class="data row4 col6">sin_reporte</td>
 </tr>
 </tbody>
 </table>
@@ -414,7 +412,7 @@ Tabla&nbsp;2: Semanas con al menos uno de los casos etiquetados como sin_reporte
 <p><strong>i)</strong> Para los modelos 1 y 2, la interpolación (y regresión) se realizara en los puntos <span class="math inline">\(x_i=i-\text{iésima semana relativa tal que hay casos observados}\)</span>. Por lo tanto el intervalo de los datos será <span class="math inline">\(I=[1, 52]\)</span>. Luego cada subintervalo <span class="math inline">\([i, i+1],\ 1\le i\le 1\)</span> se subdividira en 7 intervalos igualmente espaciados en los cuales se realizaran las predicciones, del modelo correspondiente, dandonos su curva de interpolación o de regresión.</p>
 <p><strong>ii)</strong> En cada caso se agregara al dataset una columna adicional con el valor retornado por cada modelo, para cada uno de los casos (SINT, HOSP, DEF) tanto para los etiquetados como observado, como para los etiquetados como sin_reporte.</p>
 <p><strong>iii)</strong> En cada caso las predicciones de los modelos se han redondeado a un entero. Esto para ser consistente con una cantidad entera de casos por día.</p>
-<div id="c56e0e1b" class="cell" data-execution_count="130">
+<div id="c56e0e1b" class="cell" data-execution_count="34">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">3</span>, figsize <span class="op">=</span> (<span class="dv">12</span>,<span class="dv">12</span>))</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>casos <span class="op">=</span>  [<span class="st">"SINT"</span>, <span class="st">"HOSP"</span>, <span class="st">"DEF"</span>]</span>
@@ -451,11 +449,11 @@ Tabla&nbsp;2: Semanas con al menos uno de los casos etiquetados como sin_reporte
 <span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="st">'upper right'</span>, fancybox<span class="op">=</span><span class="va">True</span>, ncols<span class="op">=</span><span class="dv">1</span>, shadow<span class="op">=</span><span class="va">True</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">1.3</span>,<span class="dv">1</span>), prop<span class="op">=</span>{<span class="st">'size'</span>: <span class="dv">13</span>})</span>
 <span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>plt.show() </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>plt.show() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Análisis%20de%20datos%20de%20Influenza_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="Tarea9_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -470,7 +468,7 @@ Tabla&nbsp;2: Semanas con al menos uno de los casos etiquetados como sin_reporte
 <li><span class="math inline">\(0&lt;r\le1\)</span> correspond a la fraccion de los datos sobre los que qureremos ponderar respecto a cada <span class="math inline">\(x_i\)</span>.</li>
 <li>El valor de <span class="math inline">\(r\)</span> se escoge segun sea conveniente, por ejemplo, disminuyendo los valores residuales. Para este caso utilizaremos el valor de <span class="math inline">\(r=0.5\)</span> como deafault, lo cual corresponde a ponderar sobre la mitad de los datos.</li>
 </ul>
-<div id="7a3bfa2f" class="cell" data-execution_count="128">
+<div id="7a3bfa2f" class="cell" data-execution_count="35">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">3</span>, figsize <span class="op">=</span> (<span class="dv">12</span>,<span class="dv">12</span>))</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>casos <span class="op">=</span>  [<span class="st">"SINT"</span>, <span class="st">"HOSP"</span>, <span class="st">"DEF"</span>]</span>
@@ -513,11 +511,11 @@ Tabla&nbsp;2: Semanas con al menos uno de los casos etiquetados como sin_reporte
 <span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].legend(loc<span class="op">=</span><span class="st">'upper right'</span>, fancybox<span class="op">=</span><span class="va">True</span>, ncols<span class="op">=</span><span class="dv">1</span>, shadow<span class="op">=</span><span class="va">True</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">1.3</span>,<span class="dv">1</span>), prop<span class="op">=</span>{<span class="st">'size'</span>: <span class="dv">13</span>})</span>
 <span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Análisis%20de%20datos%20de%20Influenza_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="Tarea9_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -528,7 +526,7 @@ Tabla&nbsp;2: Semanas con al menos uno de los casos etiquetados como sin_reporte
 <p>Dado que nos interesa saber que tan bien se ajusta la interpolación y la regresión a nuestros datos observados, conviene saber que tan dispersos estan de la curva obtenida. Por lo que utilizaremos la Raiz del Error Cuadrático Medio (<strong>RMSE</strong>) <span class="math display">\[
 \sqrt{\frac{1}{n}\sum\left(\hat{y}_i-y_i\right)^2}
 \]</span> La cual nos da la desvación estandar de los valores residuales. Notemos que en el caso del Modelo 1, que consistio en interpolar los datos, el <strong>RMSE</strong> es 0 en este caso, pues por la naturaleza del modelo, nos interesa que el modelo coincida con los valores observados en los puntos correspondientes cada semana.</p>
-<div id="869f871f" class="cell" data-execution_count="7">
+<div id="869f871f" class="cell" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(ErrorModelos)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df.index <span class="op">=</span> [<span class="st">"LOWESS"</span>,<span class="st">"PCHIP"</span>]</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>estilo_tabla <span class="op">=</span> (</span>
@@ -549,50 +547,50 @@ Tabla&nbsp;2: Semanas con al menos uno de los casos etiquetados como sin_reporte
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">format</span>(precision<span class="op">=</span><span class="dv">2</span>)</span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>estilo_tabla</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>estilo_tabla</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
 <style type="text/css">
-#T_9bcbc th {
+#T_03235 th {
   text-align: center;
   background-color: #f2f2f2;
 }
-#T_9bcbc caption {
+#T_03235 caption {
   font-size: 15px;
   padding: 10px;
 }
-#T_9bcbc_row0_col0, #T_9bcbc_row0_col1, #T_9bcbc_row0_col2, #T_9bcbc_row1_col0, #T_9bcbc_row1_col1, #T_9bcbc_row1_col2 {
+#T_03235_row0_col0, #T_03235_row0_col1, #T_03235_row0_col2, #T_03235_row1_col0, #T_03235_row1_col1, #T_03235_row1_col2 {
   background-color: ;
   text-align: center;
 }
 </style>
 
-<div id="T_9bcbc" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
+<div id="T_03235" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_9bcbc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabla&nbsp;3: RMSE para los modelos 1 y 2
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_03235-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;3: RMSE para los modelos 1 y 2
 </figcaption>
-<div aria-describedby="T_9bcbc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_9bcbc" class="caption-top table table-sm table-striped small">
+<div aria-describedby="T_03235-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="T_03235" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_9bcbc_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">SINT</th>
-<th id="T_9bcbc_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">HOSP</th>
-<th id="T_9bcbc_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">DEF</th>
+<th id="T_03235_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">SINT</th>
+<th id="T_03235_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">HOSP</th>
+<th id="T_03235_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">DEF</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th id="T_9bcbc_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">LOWESS</th>
-<td id="T_9bcbc_row0_col0" class="data row0 col0">121.58</td>
-<td id="T_9bcbc_row0_col1" class="data row0 col1">54.62</td>
-<td id="T_9bcbc_row0_col2" class="data row0 col2">7.03</td>
+<th id="T_03235_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">LOWESS</th>
+<td id="T_03235_row0_col0" class="data row0 col0">121.58</td>
+<td id="T_03235_row0_col1" class="data row0 col1">54.62</td>
+<td id="T_03235_row0_col2" class="data row0 col2">7.03</td>
 </tr>
 <tr class="even">
-<th id="T_9bcbc_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">PCHIP</th>
-<td id="T_9bcbc_row1_col0" class="data row1 col0">0.00</td>
-<td id="T_9bcbc_row1_col1" class="data row1 col1">0.00</td>
-<td id="T_9bcbc_row1_col2" class="data row1 col2">0.00</td>
+<th id="T_03235_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">PCHIP</th>
+<td id="T_03235_row1_col0" class="data row1 col0">0.00</td>
+<td id="T_03235_row1_col1" class="data row1 col1">0.00</td>
+<td id="T_03235_row1_col2" class="data row1 col2">0.00</td>
 </tr>
 </tbody>
 </table>
@@ -606,7 +604,7 @@ Tabla&nbsp;3: RMSE para los modelos 1 y 2
 <section id="e-totales-y-comparación" class="level2">
 <h2 class="anchored" data-anchor-id="e-totales-y-comparación">e) Totales y comparación</h2>
 <p>Calcularemos el total acumulado de hospitalizaciones y defunciones.</p>
-<div id="ecc64c17" class="cell" data-execution_count="8">
+<div id="ecc64c17" class="cell" data-execution_count="13">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>modelos <span class="op">=</span> [<span class="st">"PCHIP"</span>, <span class="st">"LOWESS"</span>]</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>casos <span class="op">=</span>  [<span class="st">"HOSP"</span>, <span class="st">"DEF"</span>]</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>index <span class="op">=</span> [<span class="st">"Hospitalizaciones"</span>, <span class="st">"Defunciones"</span>]</span>
@@ -645,50 +643,50 @@ Tabla&nbsp;3: RMSE para los modelos 1 y 2
 <span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>estilo_tabla</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>estilo_tabla</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
 <style type="text/css">
-#T_f32ab th {
+#T_08a57 th {
   text-align: center;
   background-color: #f2f2f2;
 }
-#T_f32ab caption {
+#T_08a57 caption {
   font-size: 15px;
   padding: 10px;
 }
-#T_f32ab_row0_col0, #T_f32ab_row0_col1, #T_f32ab_row0_col2, #T_f32ab_row1_col0, #T_f32ab_row1_col1, #T_f32ab_row1_col2 {
+#T_08a57_row0_col0, #T_08a57_row0_col1, #T_08a57_row0_col2, #T_08a57_row1_col0, #T_08a57_row1_col1, #T_08a57_row1_col2 {
   background-color: ;
   text-align: center;
 }
 </style>
 
-<div id="T_f32ab" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
+<div id="T_08a57" class="quarto-float quarto-figure quarto-figure-center anchored" data-quarto-postprocess="true">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_f32ab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabla&nbsp;4: Casos totales acumulados para los diferentes modelos y casos
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="T_08a57-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;4: Casos totales acumulados para los diferentes modelos y casos
 </figcaption>
-<div aria-describedby="T_f32ab-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table id="T_f32ab" class="caption-top table table-sm table-striped small">
+<div aria-describedby="T_08a57-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table id="T_08a57" class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th class="blank level0" data-quarto-table-cell-role="th">&nbsp;</th>
-<th id="T_f32ab_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Datos Originales</th>
-<th id="T_f32ab_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">PCHIP</th>
-<th id="T_f32ab_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">LOWESS</th>
+<th id="T_08a57_level0_col0" class="col_heading level0 col0" data-quarto-table-cell-role="th">Datos Originales</th>
+<th id="T_08a57_level0_col1" class="col_heading level0 col1" data-quarto-table-cell-role="th">PCHIP</th>
+<th id="T_08a57_level0_col2" class="col_heading level0 col2" data-quarto-table-cell-role="th">LOWESS</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th id="T_f32ab_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">HOSP</th>
-<td id="T_f32ab_row0_col0" class="data row0 col0">6588</td>
-<td id="T_f32ab_row0_col1" class="data row0 col1">6955</td>
-<td id="T_f32ab_row0_col2" class="data row0 col2">6865</td>
+<th id="T_08a57_level0_row0" class="row_heading level0 row0" data-quarto-table-cell-role="th">HOSP</th>
+<td id="T_08a57_row0_col0" class="data row0 col0">6588</td>
+<td id="T_08a57_row0_col1" class="data row0 col1">6955</td>
+<td id="T_08a57_row0_col2" class="data row0 col2">6865</td>
 </tr>
 <tr class="even">
-<th id="T_f32ab_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">DEF</th>
-<td id="T_f32ab_row1_col0" class="data row1 col0">687</td>
-<td id="T_f32ab_row1_col1" class="data row1 col1">728</td>
-<td id="T_f32ab_row1_col2" class="data row1 col2">753</td>
+<th id="T_08a57_level0_row1" class="row_heading level0 row1" data-quarto-table-cell-role="th">DEF</th>
+<td id="T_08a57_row1_col0" class="data row1 col0">687</td>
+<td id="T_08a57_row1_col1" class="data row1 col1">728</td>
+<td id="T_08a57_row1_col2" class="data row1 col2">753</td>
 </tr>
 </tbody>
 </table>
@@ -699,11 +697,10 @@ Tabla&nbsp;4: Casos totales acumulados para los diferentes modelos y casos
 </div>
 <p>Comparando los datos podemos notar que el modelo PCHIP predice más hospitalizaciones respecto al modelos LOWESS. Por otra parte, el modelo LOWESS predice mayor número de defunciones respecto al modelo PCHIP</p>
 </section>
-</section>
 <section id="bonus" class="level1">
 <h1>Bonus</h1>
 <p>Crearemos un dataframe llamado <code>HospAcumuladas</code> para guardar la serie de hospitalizaciones acumuladas, rellenando con las predicciones del modelo LOWESS.</p>
-<div id="ed3b66c8" class="cell" data-execution_count="9">
+<div id="ed3b66c8" class="cell" data-execution_count="14">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>HospAcumuladas <span class="op">=</span> influenza[[<span class="st">"CASOS_HOSP_LOWESS"</span>]].cumsum()</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>HospAcumuladas <span class="op">=</span> HospAcumuladas.rename(columns<span class="op">=</span>{<span class="st">"CASOS_HOSP_LOWESS"</span>: <span class="st">"HOSP_ACUMULADAS"</span>})</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>HospAcumuladas.index <span class="op">=</span> influenza[<span class="st">"SEMANA_RELATIVA"</span>]</span>
@@ -720,11 +717,11 @@ Tabla&nbsp;4: Casos totales acumulados para los diferentes modelos y casos
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>ax.set_xticks([<span class="dv">1</span>, <span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>, <span class="dv">50</span>])</span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>sns.scatterplot(HospAcumuladas)</span>
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>fig.suptitle(<span class="st">"Hospitalizaciones Acumuladas en base al modelo LOWESS"</span>)</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Análisis%20de%20datos%20de%20Influenza_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="Tarea9_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -742,7 +739,7 @@ F(t;K,r,t_0) = \frac{K}{1+e^{-r(t-t_0)}}
 <li><span class="math inline">\(\theta(2) = t_0\)</span></li>
 </ul>
 <p>La función trabaja a partir de un estimado dado de los parametros, en este casos utilzaremos las estimaciones - <span class="math inline">\(K = 7000\)</span> que es un valor moderadamente mayor al total de casos acumulados predichos por LOWESS - <span class="math inline">\(r = 2\)</span> - <span class="math inline">\(t_0 = 24\)</span> la semana en la que visualmente se tiene el punto de inflexión de los datos.</p>
-<div id="46864f69" class="cell" data-execution_count="10">
+<div id="46864f69" class="cell" data-execution_count="15">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> least_squares</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Defininimos la función de la curva logistica</span></span>
@@ -764,7 +761,7 @@ F(t;K,r,t_0) = \frac{K}{1+e^{-r(t-t_0)}}
 <span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Los parametros obtenidos son:"</span>)</span>
 <span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"K = </span><span class="sc">{</span>res<span class="sc">.</span>x[<span class="dv">0</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
 <span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"r = </span><span class="sc">{</span>res<span class="sc">.</span>x[<span class="dv">1</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"t_0 = </span><span class="sc">{</span>res<span class="sc">.</span>x[<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"t_0 = </span><span class="sc">{</span>res<span class="sc">.</span>x[<span class="dv">2</span>]<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Los parametros obtenidos son:
 K = 6872.716122052255
@@ -773,7 +770,7 @@ t_0 = 24.60893448341319</code></pre>
 </div>
 </div>
 <p>Redondearemos los parametros de manera que - <span class="math inline">\(K = 6872\)</span> - <span class="math inline">\(r = 0.17\)</span> - <span class="math inline">\(t_0 = 24.61\)</span></p>
-<div id="e3d06491" class="cell" data-execution_count="121">
+<div id="e3d06491" class="cell" data-execution_count="16">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">10</span>,<span class="dv">6</span>))</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>K <span class="op">=</span> <span class="dv">6872</span></span>
@@ -792,11 +789,11 @@ t_0 = 24.60893448341319</code></pre>
 <span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Modelo acumulado del número de hospitalizaciones mediante un función logística mediante una función logística"</span>, size<span class="op">=</span><span class="dv">15</span>)</span>
 <span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>ax.legend(prop<span class="op">=</span>{<span class="st">'size'</span>: <span class="dv">13</span>})</span>
 <span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Análisis%20de%20datos%20de%20Influenza_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="Tarea9_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -805,7 +802,7 @@ t_0 = 24.60893448341319</code></pre>
 F(t) = \frac{6872}{1+e^{-0.17(t-24.61)}}
 \]</span></p>
 <p>Graficaremos ahora los valores residuales</p>
-<div id="cb8a7b50" class="cell" data-execution_count="120">
+<div id="cb8a7b50" class="cell" data-execution_count="17">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">10</span>,<span class="dv">6</span>))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>ax.hlines(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">52</span>, linestyles<span class="op">=</span><span class="st">'dashed'</span>, color<span class="op">=</span><span class="st">'black'</span>)</span>
@@ -817,11 +814,11 @@ F(t) = \frac{6872}{1+e^{-0.17(t-24.61)}}
 <span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Valores residuales del modelo logístico"</span>, size<span class="op">=</span><span class="dv">15</span>)</span>
 <span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>ax.legend(prop<span class="op">=</span>{<span class="st">'size'</span>: <span class="dv">13</span>})</span>
 <span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Análisis%20de%20datos%20de%20Influenza_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="Tarea9_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -850,7 +847,7 @@ e^{-r(t-t_0)}=\frac{K}{p}-1
 Q(p)=F^{-1}(p)=-\frac{1}{r}\ln{\left(\frac{K}{p}-1\right)}+t_0=t
 \]</span></p>
 <p>Implementando estas funciones a codigo se tiene que</p>
-<div id="c9e5b388" class="cell" data-execution_count="13">
+<div id="c9e5b388" class="cell" data-execution_count="18">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(theta, t):</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    exponent <span class="op">=</span> <span class="op">-</span> theta[<span class="dv">1</span>] <span class="op">*</span> (t <span class="op">-</span> theta[<span class="dv">2</span>])</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    exp_val <span class="op">=</span> np.exp(exponent)</span>
@@ -859,24 +856,24 @@ Q(p)=F^{-1}(p)=-\frac{1}{r}\ln{\left(\frac{K}{p}-1\right)}+t_0=t
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> Q(theta, p):</span>
 <span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (<span class="op">-</span><span class="dv">1</span> <span class="op">/</span> theta[<span class="dv">1</span>]) <span class="op">*</span> np.log((theta[<span class="dv">0</span>] <span class="op">/</span> p) <span class="op">-</span> <span class="dv">1</span>) <span class="op">+</span> theta[<span class="dv">2</span>]</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="f1190ae9" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>F(theta,<span class="dv">1</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div id="f1190ae9" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>F(theta,<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>np.float64(121.94928926262486)</code></pre>
 </div>
 </div>
-<div id="ec05c93b" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ys[<span class="dv">0</span>]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div id="ec05c93b" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ys[<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>np.float64(11.0)</code></pre>
 </div>
 </div>
 <p>Podemos entonces definir <span class="math display">\[
 Q(p)=F^{-1}(p) \quad p\in[122, K)
 \]</span> el intervalo empieza en 121 ya que es el redondeado del número de casos predicho por el modelo logístico durante la primera semana.</p>
-<div id="0d065e7e" class="cell" data-execution_count="119">
+<div id="0d065e7e" class="cell" data-execution_count="21">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">10</span>,<span class="dv">6</span>))</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>P <span class="op">=</span> np.arange(<span class="dv">122</span>, K, <span class="dv">1</span>)</span>
@@ -889,11 +886,11 @@ Q(p)=F^{-1}(p) \quad p\in[122, K)
 <span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">"Inversa del modelo logístico para hospitalizaciones acumuladas"</span>, size<span class="op">=</span><span class="dv">15</span>)</span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>ax.legend(prop<span class="op">=</span>{<span class="st">'size'</span>: <span class="dv">13</span>})</span>
 <span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Análisis%20de%20datos%20de%20Influenza_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="Tarea9_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -903,14 +900,14 @@ Q(p)=F^{-1}(p) \quad p\in[122, K)
 <h3 class="anchored" data-anchor-id="ii-qp-y-qp-sobre-una-malla-de-valores-de-p">ii) <span class="math inline">\(Q'(p)\)</span> y <span class="math inline">\(Q''(p)\)</span> sobre una malla de valores de p</h3>
 <p>A partir de los resultados anteriores podemos definir explícitamente quien es <span class="math inline">\(Q'(p)\)</span>, y de manera numérica quien es <span class="math inline">\(Q''(p)\)</span>.</p>
 <p>La malla de valores de <span class="math inline">\(p\)</span> la construiremos tomando unicamente valores enteros para <span class="math inline">\(p\)</span>, en el intervalo <span class="math inline">\((122, K]\)</span> será sobre esta misma malla que estimaremos la segunda derivada de <span class="math inline">\(Q\)</span> empleando la función <code>derivate</code> de la libreria <code>scipy.differentiate</code>, aplicada a la función <code>dQ(p)</code> imeplementada en python, correspondiente a <span class="math inline">\(Q'(p)\)</span>.</p>
-<div id="f3971ccf" class="cell" data-execution_count="17">
+<div id="f3971ccf" class="cell" data-execution_count="22">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># defincición de dQ(p) = Q'(p)</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dQ(p):</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span> <span class="op">/</span> f(theta, Q(theta, p))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">1</span> <span class="op">/</span> f(theta, Q(theta, p))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Mostraremos la gráfica de <span class="math inline">\(Q''(x)\)</span> tomando escala logarítmica en el eje <span class="math inline">\(Y\)</span></p>
-<div id="50d66233" class="cell" data-execution_count="118">
+<div id="50d66233" class="cell" data-execution_count="23">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.differentiate <span class="im">import</span> derivative</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># definimos la malla de valores para p</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -929,11 +926,11 @@ Q(p)=F^{-1}(p) \quad p\in[122, K)
 <span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>ax.tick_params(axis<span class="op">=</span><span class="st">'both'</span>, which<span class="op">=</span><span class="st">'major'</span>, labelsize<span class="op">=</span><span class="dv">12</span>)</span>
 <span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>ax.legend(prop<span class="op">=</span>{<span class="st">'size'</span>: <span class="dv">13</span>})</span>
 <span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Análisis%20de%20datos%20de%20Influenza_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="Tarea9_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -943,14 +940,14 @@ Q(p)=F^{-1}(p) \quad p\in[122, K)
 <section id="iii-primera-inflexión-del-modelo-logístico" class="level3">
 <h3 class="anchored" data-anchor-id="iii-primera-inflexión-del-modelo-logístico">iii) Primera inflexión del modelo logístico</h3>
 <p>Podemos ahora iterar sobre la malla de <span class="math inline">\(p\)</span> e identificar el momento justo antes del punto de inflexión</p>
-<div id="ae795404" class="cell" data-execution_count="19">
+<div id="ae795404" class="cell" data-execution_count="24">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>p_inflexion <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span> (<span class="bu">len</span>(ddQ.df)):</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ddQ.df[i<span class="op">+</span><span class="dv">1</span>] <span class="op">&gt;</span> <span class="dv">0</span> :</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        p_inflexion <span class="op">=</span> i <span class="op">+</span> <span class="dv">122</span></span>
 <span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"La primera inflexión se da en p = </span><span class="sc">{</span>p_inflexion<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"La primera inflexión se da en p = </span><span class="sc">{</span>p_inflexion<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>La primera inflexión se da en p = 3436</code></pre>
 </div>
@@ -960,9 +957,9 @@ Q(p)=F^{-1}(p) \quad p\in[122, K)
 <section id="iv-de-regreso-a-la-escala-temporal" class="level3">
 <h3 class="anchored" data-anchor-id="iv-de-regreso-a-la-escala-temporal">iv) De regreso a la escala temporal</h3>
 <p>Aplicando <span class="math inline">\(F^{-1}\)</span>, y redondeando al entero más cercano obtenemos que</p>
-<div id="5a7d5880" class="cell" data-execution_count="20">
+<div id="5a7d5880" class="cell" data-execution_count="25">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>t_inflexion <span class="op">=</span> np.<span class="bu">round</span>(Q(theta, p_inflexion))</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"pico epidémico t = </span><span class="sc">{</span>t_inflexion<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"pico epidémico t = </span><span class="sc">{</span>t_inflexion<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>pico epidémico t = 25.0</code></pre>
 </div>
@@ -970,7 +967,7 @@ Q(p)=F^{-1}(p) \quad p\in[122, K)
 <p>La semana de inicio del pico corresponde a <span class="math inline">\(t^{\ast}=F^{-1}(p)\approx 25\)</span>.</p>
 <section id="v-gráfica-del-inicio-del-pico" class="level4">
 <h4 class="anchored" data-anchor-id="v-gráfica-del-inicio-del-pico">v) Gráfica del inicio del pico</h4>
-<div id="baf9bff9" class="cell" data-execution_count="115">
+<div id="baf9bff9" class="cell" data-execution_count="26">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">2</span>, figsize <span class="op">=</span> (<span class="dv">10</span>,<span class="dv">15</span>))</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>YdQ <span class="op">=</span> [dQ(p) <span class="cf">for</span> p <span class="kw">in</span> P]</span>
@@ -994,11 +991,11 @@ Q(p)=F^{-1}(p) \quad p\in[122, K)
 <span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].tick_params(axis<span class="op">=</span><span class="st">'both'</span>, which<span class="op">=</span><span class="st">'major'</span>, labelsize<span class="op">=</span><span class="dv">12</span>)</span>
 <span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">1</span>].legend(prop<span class="op">=</span>{<span class="st">'size'</span>: <span class="dv">13</span>})</span>
 <span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].legend(prop<span class="op">=</span>{<span class="st">'size'</span>: <span class="dv">13</span>})</span>
-<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Análisis%20de%20datos%20de%20Influenza_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="Tarea9_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1037,12 +1034,12 @@ Q(p)=F^{-1}(p) \quad p\in[122, K)
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copiado");
+      button.setAttribute("title", "Copied!");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copiado");
+        button.setAttribute("data-bs-title", "Copied!");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",

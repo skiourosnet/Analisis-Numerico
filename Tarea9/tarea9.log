@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2025.8.4)  5 MAY 2026 20:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2025.8.4)  5 MAY 2026 23:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/Kevin/Desktop/CCM/Analisis-Numerico/Tarea 2/homework.tex"
-(c:/Users/Kevin/Desktop/CCM/Analisis-Numerico/Tarea 2/homework.tex
+**c:/Users/Kevin/Desktop/CCM/Analisis-Numerico/Tarea9/tarea9.tex
+(c:/Users/Kevin/Desktop/CCM/Analisis-Numerico/Tarea9/tarea9.tex
 LaTeX2e <2024-11-01> patch level 1
 L3 programming layer <2024-11-02>
 (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -136,12 +136,23 @@ Package babel Info: Importing font and identification data for spanish
 (babel)             from babel-es.ini. Reported on input line 11.
 ) (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
-) (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
-Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+) (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/parskip\parskip.sty
+Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
+ (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
  (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
 Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
 \KV@toks@=\toks29
-) (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+) (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
+Package: ltxcmds 2023-12-04 v1.26 LaTeX kernel commands for general use (HO)
+) (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+)) (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/etoolbox\etoolbox.sty
+Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count285
+)) (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
+ (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
 Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
  (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
 Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
@@ -163,10 +174,10 @@ Package: enumitem 2019/06/20 v3.9 Customized lists
 \enit@outerparindent=\dimen154
 \enit@toks=\toks31
 \enit@inbox=\box54
-\enit@count@id=\count285
-\enitdp@description=\count286
+\enit@count@id=\count286
+\enitdp@description=\count287
 )
-\c@problema=\count287
+\c@problema=\count288
  (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/algorithmicx\algpseudocode.sty
 Package: algpseudocode 
  (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
@@ -175,15 +186,15 @@ Package: ifthen 2024/03/16 v1.1e Standard LaTeX ifthen package (DPC)
 Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
 
 Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
-\c@ALG@line=\count288
-\c@ALG@rem=\count289
-\c@ALG@nested=\count290
+\c@ALG@line=\count289
+\c@ALG@rem=\count290
+\c@ALG@nested=\count291
 \ALG@tlm=\skip58
 \ALG@thistlm=\skip59
-\c@ALG@Lnr=\count291
-\c@ALG@blocknr=\count292
-\c@ALG@storecount=\count293
-\c@ALG@tmpcounter=\count294
+\c@ALG@Lnr=\count292
+\c@ALG@blocknr=\count293
+\c@ALG@storecount=\count294
+\c@ALG@tmpcounter=\count295
 \ALG@tmplength=\skip60
 )
 Document Style - pseudocode environments for use with the `algorithmicx' style
@@ -191,14 +202,14 @@ Document Style - pseudocode environments for use with the `algorithmicx' style
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating environment
  (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
-\c@float@type=\count295
+\c@float@type=\count296
 \float@exts=\toks32
 \float@box=\box55
 \@float@everytoks=\toks33
 \@floatcapt=\box56
 )
 \@float@every@algorithm=\toks34
-\c@algorithm=\count296
+\c@algorithm=\count297
 ) (preamble/formato.tex (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
 Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 \f@nch@headwidth=\skip61
@@ -223,9 +234,9 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
  (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
 Package: iftex 2024/12/12 v1.0g TeX engine tests
 ))
-\Gm@cnth=\count297
-\Gm@cntv=\count298
-\c@Gm@tempcnt=\count299
+\Gm@cnth=\count298
+\Gm@cntv=\count299
+\c@Gm@tempcnt=\count300
 \Gm@bindingoffset=\dimen155
 \Gm@wd@mp=\dimen156
 \Gm@odd@mp=\dimen157
@@ -237,13 +248,13 @@ Package: iftex 2024/12/12 v1.0g TeX engine tests
 \Gm@dimlist=\toks36
  (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))) (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count300
+\l__color_backend_stack_int=\count301
 \l__pdf_internal_box=\box57
-) (homework.aux
+) (tarea9.aux
 LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
 )
-\openout1 = `homework.aux'.
+\openout1 = `tarea9.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 10.
 LaTeX Font Info:    ... okay on input line 10.
@@ -263,16 +274,16 @@ LaTeX Info: Redefining \. on input line 10.
 LaTeX Info: Redefining \% on input line 10.
  (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count301
+\scratchcounter=\count302
 \scratchdimen=\dimen163
 \scratchbox=\box58
-\nofMPsegments=\count302
-\nofMParguments=\count303
+\nofMPsegments=\count303
+\nofMParguments=\count304
 \everyMPshowfont=\toks37
-\MPscratchCnt=\count304
+\MPscratchCnt=\count305
 \MPscratchDim=\dimen164
-\MPnumerator=\count305
-\makeMPintoPDFobject=\count306
+\MPnumerator=\count306
+\makeMPintoPDFobject=\count307
 \everyMPtoPDFconversion=\toks38
 ) (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -314,11 +325,11 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 13.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 16.
 (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 13.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 16.
  (C:\Users\Kevin\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
@@ -330,8 +341,22 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 [2]
 
 [3]
+<spline.png, id=21, 976.39781pt x 407.27156pt>
+File: spline.png Graphic file (type png)
+<use spline.png>
+Package pdftex.def Info: spline.png  used on input line 145.
+(pdftex.def)             Requested size: 452.9679pt x 188.93808pt.
 
-[4] (homework.aux
+
+[4 <./spline.png>]
+<newton.png, id=28, 1023.07219pt x 465.23813pt>
+File: newton.png Graphic file (type png)
+<use newton.png>
+Package pdftex.def Info: newton.png  used on input line 166.
+(pdftex.def)             Requested size: 452.9679pt x 205.98322pt.
+
+
+[5 <./newton.png>] (tarea9.aux
 LaTeX Info: Redefining \. on input line 8.
 LaTeX Info: Redefining \% on input line 8.
 )
@@ -341,17 +366,17 @@ L3 programming layer <2024-11-02>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 6322 strings out of 473650
- 99292 string characters out of 5717936
- 514132 words of memory out of 5000000
- 29343 multiletter control sequences out of 15000+600000
- 568795 words of font info for 62 fonts, out of 8000000 for 9000
+ 7011 strings out of 473650
+ 109992 string characters out of 5717936
+ 525709 words of memory out of 5000000
+ 30015 multiletter control sequences out of 15000+600000
+ 567323 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,12n,77p,602b,369s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx1095.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx1440.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm1095.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm1200.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on homework.pdf (4 pages, 181294 bytes).
+ 63i,8n,77p,584b,365s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/symbols/msam10.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx1440.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm1095.pfb><C:/Users/Kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on tarea9.pdf (5 pages, 223088 bytes).
 PDF statistics:
- 86 PDF objects out of 1000 (max. 8388607)
+ 79 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
