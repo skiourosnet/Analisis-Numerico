@@ -1,0 +1,43 @@
+\begin{problema}\leavevmode
+\begin{enumerate}[label=\textbf{\alph*)}]
+\item Los pesos correspondientes son
+
+\begin{align*}
+w_0 &= \int_{a}^{b} \frac{\left(x - \frac{a+b}{2}\right)(x - b)}{\left(a - \frac{a+b}{2}\right)(a - b)} \, dx
+\end{align*}
+
+Tomando el cambio de variable \( x = \frac{b-a}{2}t + \frac{a+b}{2} \), se tiene \( dx = \frac{b-a}{2} \, dt \) y
+
+\begin{align*}
+w_0 &= \int_{-1}^{1} \frac{\left(\frac{b-a}{2}t\right) \left(\frac{b-a}{2}t + \frac{a-b}{2}\right)}{\left(\frac{a-b}{2}\right)(a-b)} \frac{b-a}{2} \, dt \\[1em]
+&= \frac{b-a}{4} \int_{-1}^{1} \frac{(b-a)^2\ t(t-1)}{(a-b)^2} \, dt \\[1em]
+&= \frac{b-a}{4} \int_{-1}^{1} (t^2 - t) \, dt \\[1em]
+&= \frac{b-a}{4} \left[ \frac{1}{3}t^3 - \frac{1}{2}t^2 \right]_{-1}^{1} \\[1em]
+&= \frac{b-a}{4} \times \frac{2}{3} \\[1em]
+&= \frac{b-a}{6}
+\end{align*}
+
+
+% Requiere \usepackage{amsmath}
+
+\begin{align*}
+w_1 &= \int_{a}^{b} \frac{(x - a)(x - b)}{\left(\frac{a+b}{2} - a\right)\left(\frac{a+b}{2} - b\right)} \, dx \\[1em]
+\end{align*}
+
+Tomando nuevamente el cambio de variable \( x = \frac{b-a}{2}t + \frac{a+b}{2} \), se tiene:
+
+\begin{align*}
+w_1 &= \int_{-1}^{1} \frac{\left( \frac{b-a}{2}t + \frac{b-a}{2} \right) \left( \frac{b-a}{2}t + \frac{a-b}{2} \right)}{\left( \frac{b-a}{2} \right) \left( \frac{a-b}{2} \right)} \frac{b-a}{2} \, dt \\[1em]
+&= \frac{b-a}{2} \int_{-1}^{1} (t + 1)(-t + 1) \, dt \\[1em]
+&= \frac{b-a}{2} \int_{-1}^{1} 1 - t^2 \, dt \\[1em]
+&= \frac{b-a}{2} \left[ t - \frac{1}{3}t^3 \right]_{-1}^{1} \\[1em]
+&= \frac{b-a}{2} \times \frac{4}{3} \\[1em]
+&= \frac{4}{6}(b - a)
+\end{align*}
+
+Para el peso \(w_2\) notemos que el polinomio cuadrático sobre el cual integramos es exactamente el mismo que para el peso $w_1$ pero trasladado \(\dfrac{a+b}{2}\) unidades hacia la derecha, y ambos casos integramos sobre un intervalo de longitud \(\dfrac{a+b}{2}\), por lo tanto \[w_2=w_1=\frac{b-a}{6}\]
+
+
+
+\end{enumerate}
+\end{problema}
