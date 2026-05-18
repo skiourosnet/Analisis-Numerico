@@ -1,10 +1,10 @@
 # Fdb version 4
-["xdvipdfmx"] 1778539508.82548 "homework.xdv" "homework.pdf" "homework" 1778539509.06143 0
-  "homework.xdv" 1778539508 13168 0e96b68a8cf25d7c8fa42899c32210dd "xelatex"
+["xdvipdfmx"] 1779122672.38982 "homework.xdv" "homework.pdf" "homework" 1779122672.67872 0
+  "homework.xdv" 1779122672 19712 b7f557bdf5c5b90c9c568b4582e9c514 "xelatex"
   (generated)
   "homework.pdf"
   (rewritten before read)
-["xelatex"] 1778539507.87649 "c:/Users/Kevin Celis/OneDrive/Desktop/Analisis-Numerico/Tarea 10/homework.tex" "homework.xdv" "homework" 1778539509.05525 0
+["xelatex"] 1779122671.38349 "c:/Users/Kevin Celis/OneDrive/Desktop/Analisis-Numerico/Tarea 10/homework.tex" "homework.xdv" "homework" 1779122672.67223 0
   "C:/Users/Kevin Celis/AppData/Local/MiKTeX/miktex/data/le/xetex/xelatex.fmt" 1778102182 27179550 b7cc654c2499dd54be7584903017ba2d ""
   "C:/Users/Kevin Celis/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
   "C:/Users/Kevin Celis/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm" 1233951848 988 bdf658c3bfc2d96d3c8b02cfc1c94c20 ""
@@ -143,13 +143,15 @@
   "C:/Users/Kevin Celis/AppData/Local/Programs/MiKTeX/tex/latex/tools/array.sty" 1761901070 15651 9d7c62df82cb29a555c00550babfe364 ""
   "C:/Users/Kevin Celis/AppData/Local/Programs/MiKTeX/tex/latex/tools/enumerate.sty" 1761901070 3468 f21ceb3448a22fec45299f924e7fc48b ""
   "C:/Users/Kevin Celis/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1729265222 55384 b454dec21c2d9f45ec0b793f0995b992 ""
-  "c:/Users/Kevin Celis/OneDrive/Desktop/Analisis-Numerico/Tarea 10/homework.tex" 1778365278 334 d0084139d95225d20ed80cfe3d00672e ""
-  "homework.aux" 1778539508 170 071a38aec1924cb418e4cedbc0774f51 "xelatex"
-  "homework.tex" 1778365278 334 d0084139d95225d20ed80cfe3d00672e ""
+  "c:/Users/Kevin Celis/OneDrive/Desktop/Analisis-Numerico/Tarea 10/homework.tex" 1779122670 382 62af4002e8c2e3da500760212499428e ""
+  "homework.aux" 1779122672 170 9ec58f1a8d2488d96829d5e0e786fd94 "xelatex"
+  "homework.tex" 1779122670 382 62af4002e8c2e3da500760212499428e ""
+  "img/tarea9_2c.png" 1778384570 36769 0fefb443b715dbfaf86e4e0916c7a402 ""
   "preamble/formato.tex" 1778355908 427 9c4d546b6df2ff18641251a86f64e680 ""
   "preamble/preamble.tex" 1778370492 813 0ec45d057d216d8c1268b00b3563aaf0 ""
-  "problemas/problema1.tex" 1778539507 3401 e1f5f881469aa3c04a549bc36660faac ""
-  "problemas/problema2.tex" 1778370858 1967 1b4519279df5957be3baa3e0e2360a70 ""
+  "problemas/problema1.tex" 1778968667 3401 e1f5f881469aa3c04a549bc36660faac ""
+  "problemas/problema2.tex" 1779122639 3532 8492358fa89a2d9f0ef8a27b304e7182 ""
+  "problemas/problema3.tex" 1778978803 2093 e6c89663688d330efe217f3b2893617a ""
   (generated)
   "homework.aux"
   "homework.log"

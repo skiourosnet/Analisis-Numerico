@@ -1,0 +1,24 @@
+\begin{problema}[Cuadratura Gaussiana]\leavevmode
+    \begin{enumerate}[label=\textbf{\alph*)}]
+        \item Dada un polinomio \(q(x)\) de grado \(n+1\) ortogonal a todo polinomio de grado \(0\le k\le n\) en el sentido de que \[\int_a^b x^kq(x)dx=0\qquad 0\le k\le n\]
+        Se tiene entonces la formula \[\int_a^bf(x)dx\approx\sum_{k=0}^nA_if(x_k)\quad\text{donde}\quad A_i=\int_a^bL_k(x)dx\] y en donde los puntos \(x_k\) son las raíces de \(q(x)\).
+
+        En particular se tendrá que la formula es exacta para polinomios \(f\) de grado hasta \(2n+1\). Esto debido a que por el algoritmo de la división se tiene que \[f=pq+r\] donde \(p\) es el polinomio cociente, y \(r\) es el residuo. Ambos son tales que \[\deg(p),\ \deg(r)\le n\] Por lo tanto
+        \begin{align*}
+            \int_a^bf(x)dx & = \int_a^b p(x)q(x)dx + \int_a^b r(x)dx\\[1em]
+                           & = \sum_{k=0}^{n}\int_a^b r(x_k)L_k(x)dx  \\[1em]
+                           & = \sum_{k=0}^{n}A_k r(x_k)\\[1em]
+                           & = \sum_{k=0}^{n}A_k f(x_k)
+        \end{align*}
+        En donde la ultima igualdad es cierta debido a que \(f(x_k)=p(x_k)q(x_k)+r(x_k)=r(x_k)\). 
+
+        En particular, como los coeficientes $A_k$ son los mismos independientemente de la función, estos pueden calcularse directamente, integrando de forma explicita los polinomios de mónicos \(1,\ x,\ \ldots,\ x^{2n+1}\). 
+
+        Podemos decir entonces que para obtener una forma de cuadratura dados \(2(n+1)\) parámetros, los cuales constan \(n+1\) puntos de interpolación \(x_0,\ x_1, \ldots,\ x_n\) y \(n+1\) coeficientes \(A_0,\ A_1, \ldots,\ A_n\) de manera que tengamos una aproximación de la forma \[\int_a^bf(x)dx\approx A_0f(x_0)+A_1f(x_1)+\cdots A_nf(x_n)\]
+        esta necesariamente será exacta para polinomios de grado a lo más \(2n+1\), y esta condición puede usarse para el calculo de los parámetros, es decir, tanto de los puntos de interpolación, como de los coeficientes de cuadratura. 
+
+        \item Gauss-Legendre
+        
+
+    \end{enumerate}
+\end{problema}
